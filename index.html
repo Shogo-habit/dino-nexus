@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dino-Nexus | Digital Dinosaur Museum</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="hud-theme">
+    <!-- Overlay effects -->
+    <div class="scanlines"></div>
+    <div class="grid-overlay"></div>
+    <div class="noise-overlay"></div>
+
+    <header class="main-header">
+        <div class="logo-container">
+            <span class="logo-prefix">PROJECT</span>
+            <h1 class="logo-text">DINO-NEXUS</h1>
+            <span class="status-indicator online">SYSTEM ONLINE</span>
+        </div>
+        <nav class="nav-menu">
+            <a href="#home" class="nav-link active" data-link="home">
+                <span class="nav-icon">▤</span> HOME
+            </a>
+            <a href="#dictionary" class="nav-link" data-link="dictionary">
+                <span class="nav-icon">☷</span> DICTIONARY
+            </a>
+            <a href="#vs-sim" class="nav-link" data-link="vs-sim">
+                <span class="nav-icon">⚔</span> VS-SIM
+            </a>
+            <a href="#news-feed" class="nav-link" data-link="news-feed">
+                <span class="nav-icon">◈</span> NEWS
+            </a>
+        </nav>
+    </header>
+
+    <main id="app-container">
+        <!-- Content will be injected here by app.js -->
+        <div class="loader">
+            <div class="loader-bar"></div>
+            <p>INITIALIZING DATA STREAM...</p>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="terminal-footer">
+            <div class="footer-left">
+                <span class="term-prompt">></span>
+                <span class="typing-text">SCANNING ARCHIVES...</span>
+            </div>
+            <div class="footer-right">
+                <span class="coord">LAT: 35.6895 N</span>
+                <span class="coord">LON: 139.6917 E</span>
+                <span class="version">V.2026.4.5</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="app.js?v=1.0.1"></script>
+</body>
+</html>
