@@ -2058,8 +2058,8 @@ const DINOSAURS = [
   },
   {
     id: "nasutoceratops",
-    name: "ナスートケラトプス",
-    kana: "なすーとけらとぷす",
+    name: "ナーストケラトプス",
+    kana: "なーすとけらとぷす",
     scientificName: "Nasutoceratops titani",
     era: "白亜紀後期",
     region: "北アメリカ",
@@ -2582,6 +2582,23 @@ const DINOSAURS = [
       { trait: "装甲", value: "骨質板", detail: "全身を覆うリベット状の鎧" }
     ],
     image: "images/desmatosuchus.webp"
+  },
+  {
+    id: "nyctosaurus",
+    name: "ニクトサウルス",
+    kana: "にくとさうるす",
+    scientificName: "Nyctosaurus gracilis",
+    era: "白亜紀後期",
+    region: "北アメリカ",
+    diet: "肉食（魚食）",
+    length: "翼開長2.0m",
+    weight: "2kg",
+    description: "翼竜の中でも極めて特異な、頭部の数倍もある巨大なトサカを持つ。トサカは1本の主軸がV字型に分かれた構造をしており、帆のように風を受けて飛行を補助した可能性もある。",
+    bioTraits: [
+      { trait: "巨大なトサカ", value: "V字/Y字型", detail: "極めて高く伸びる分岐したトサカ" },
+      { trait: "飛行適応", value: "グライダー", detail: "上昇気流を捉えて海上で長時間飛行する" }
+    ],
+    image: "images/nyctosaurus.webp"
   }
 ];
 
