@@ -27,6 +27,57 @@ const CYBER_ASSETS = {
     dimetrodon: 'images/cyber/dimetrodon.png',
     iguanodon: 'images/cyber/iguanodon.png',
     plesiosaurus: 'images/cyber/plesiosaurus.png',
+    deinonychus: 'images/cyber/deinonychus.png',
+    styracosaurus: 'images/cyber/styracosaurus.png',
+    gallimimus: 'images/cyber/gallimimus.png',
+    microraptor: 'images/cyber/microraptor.png',
+    archelon: 'images/cyber/archelon.png',
+    oviraptor: 'images/cyber/oviraptor.png',
+    edmontosaurus: 'images/cyber/edmontosaurus.png',
+    patagotitan: 'images/cyber/patagotitan.png',
+    tarbosaurus: 'images/cyber/tarbosaurus.png',
+    fukuiraptor: 'images/cyber/fukuiraptor.png',
+    futabasaurus: 'images/cyber/futabasaurus.png',
+    amargasaurus: 'images/cyber/amargasaurus.png',
+    mamenchisaurus: 'images/cyber/mamenchisaurus.png',
+    ichthyosaurus: 'images/cyber/ichthyosaurus.png',
+    nasutoceratops: 'images/cyber/nasutoceratops.png',
+    elasmosaurus: 'images/cyber/elasmosaurus.png',
+    kentrosaurus: 'images/cyber/kentrosaurus.png',
+    baryonyx: 'images/cyber/baryonyx.png',
+    fukuisaurus: 'images/cyber/fukuisaurus.png',
+    ceratosaurus: 'images/cyber/ceratosaurus.png',
+    dimorphodon: 'images/cyber/dimorphodon.png',
+    protoceratops: 'images/cyber/protoceratops.png',
+    gastonia: 'images/cyber/gastonia.png',
+    corythosaurus: 'images/cyber/corythosaurus.png',
+    maiasaura: 'images/cyber/maiasaura.png',
+    fukuititan: 'images/cyber/fukuititan.png',
+    fukuivenator: 'images/cyber/fukuivenator.png',
+    majungasaurus: 'images/cyber/majungasaurus.png',
+    coelophysis: 'images/cyber/coelophysis.png',
+    saltasaurus: 'images/cyber/saltasaurus.png',
+    rhamphorhynchus: 'images/cyber/rhamphorhynchus.png',
+    pterodactylus: 'images/cyber/pterodactylus.png',
+    dsungaripterus: 'images/cyber/dsungaripterus.png',
+    titanoboa: 'images/cyber/titanoboa.png',
+    lambeosaurus: 'images/cyber/lambeosaurus.png',
+    nanuqsaurus: 'images/cyber/nanuqsaurus.png',
+    koshisaurus: 'images/cyber/koshisaurus.png',
+    tambatitan: 'images/cyber/tambatitan.png',
+    yamatodraco: 'images/cyber/yamatodraco.png',
+    paralitherizinosaurus: 'images/cyber/paralitherizinosaurus.png',
+    nipponosaurus: 'images/cyber/nipponosaurus.png',
+    wakinosaurus: 'images/cyber/wakinosaurus.png',
+    sanchuryu: 'images/cyber/sanchuryu.png',
+    acrocanthosaurus: 'images/cyber/acrocanthosaurus.png',
+    suchomimus: 'images/cyber/suchomimus.png',
+    albertosaurus: 'images/cyber/albertosaurus.png',
+    daspletosaurus: 'images/cyber/daspletosaurus.png',
+    gorgosaurus: 'images/cyber/gorgosaurus.png',
+    eoraptor: 'images/cyber/eoraptor.png',
+    herrerasaurus: 'images/cyber/herrerasaurus.png',
+    compsognathus: 'images/cyber/compsognathus.png',
     human: 'images/cyber/human_front.png',
 };
 
@@ -111,14 +162,525 @@ const SPECIMEN_METADATA = {
         refRight: '5%',
         zoom: 0.85
     },
+    deinonychus: { 
+        bottomGap: 285, 
+        realHeight: 1.4, 
+        realLength: 3.4,
+        contentHeightPx: 381, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '6%',
+        zoom: 1.0
+    },
+    styracosaurus: { 
+        bottomGap: 300, 
+        realHeight: 3.2, 
+        realLength: 5.5,
+        contentHeightPx: 554, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '10%',
+        zoom: 1.0
+    },
+    gallimimus: { 
+        bottomGap: 279, 
+        realHeight: 3.5, 
+        realLength: 7.0,
+        contentHeightPx: 465, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 0.8
+    },
+    microraptor: { 
+        bottomGap: 300, 
+        realHeight: 0.4, 
+        realLength: 0.8,
+        contentHeightPx: 453, 
+        sourceRes: 1024,
+        dinoLeft: '30%',
+        refRight: '16%',
+        zoom: 1.0
+    },
+    archelon: { 
+        bottomGap: 170, 
+        realHeight: 3.0, 
+        realLength: 4.5,
+        contentHeightPx: 626, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    oviraptor: { 
+        bottomGap: 160, 
+        realHeight: 1.5, 
+        realLength: 2.0,
+        contentHeightPx: 739, 
+        sourceRes: 1024,
+        dinoLeft: '10%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    edmontosaurus: { 
+        bottomGap: 270, 
+        realHeight: 5.8, 
+        realLength: 12.0,
+        contentHeightPx: 470, 
+        sourceRes: 1024,
+        dinoLeft: '0%',
+        refRight: '10%',
+        zoom: 1.0
+    },
+    patagotitan: { 
+        bottomGap: 280, 
+        realHeight: 14.0, 
+        realLength: 37.0,
+        contentHeightPx: 506, 
+        sourceRes: 1024,
+        dinoLeft: '0%',
+        refRight: '25%',
+        zoom: 1.2
+    },
+    tarbosaurus: { 
+        bottomGap: 280, 
+        realHeight: 5.0, 
+        realLength: 11.0,
+        contentHeightPx: 436, 
+        sourceRes: 1024,
+        dinoLeft: '0%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    fukuiraptor: { 
+        bottomGap: 275, 
+        realHeight: 2.1, 
+        realLength: 4.2,
+        contentHeightPx: 482, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 0.8
+    },
+    futabasaurus: { 
+        bottomGap: 298, 
+        realHeight: 2.9, 
+        realLength: 7.0,
+        contentHeightPx: 411, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    amargasaurus: { 
+        bottomGap: 225, 
+        realHeight: 6.0, 
+        realLength: 10.0,
+        contentHeightPx: 581, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 0.8
+    },
+    mamenchisaurus: { 
+        bottomGap: 175, 
+        realHeight: 15.5, 
+        realLength: 22.0, 
+        contentHeightPx: 693, 
+        sourceRes: 1024, 
+        dinoLeft: '5%', 
+        refRight: '30%', 
+        zoom: 1.0 
+    },
+    ichthyosaurus: { 
+        bottomGap: 274, 
+        realHeight: 1.56, 
+        realLength: 3.3,
+        contentHeightPx: 456, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '10%',
+        zoom: 1.0
+    },
+    nasutoceratops: { 
+        bottomGap: 215, 
+        realHeight: 2.92, 
+        realLength: 4.5,
+        contentHeightPx: 634, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '10%',
+        zoom: 1.0
+    },
+    elasmosaurus: { 
+        bottomGap: 220, 
+        realHeight: 5.9, 
+        realLength: 10.3,
+        contentHeightPx: 546, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 0.9
+    },
+    kentrosaurus: { 
+        bottomGap: 270, 
+        realHeight: 2.87, 
+        realLength: 4.5,
+        contentHeightPx: 629, 
+        sourceRes: 1024,
+        dinoLeft: '0%',
+        refRight: '6%',
+        zoom: 1.0
+    },
+    baryonyx: { 
+        bottomGap: 205, 
+        realHeight: 6.46, 
+        realLength: 9.5,
+        contentHeightPx: 660, 
+        sourceRes: 1024,
+        dinoLeft: '8%',
+        refRight: '22%',
+        zoom: 0.9
+    },
+    fukuisaurus: { 
+        bottomGap: 273, 
+        realHeight: 2.27, 
+        realLength: 4.7,
+        contentHeightPx: 469, 
+        sourceRes: 1024,
+        dinoLeft: '0%',
+        refRight: '10%',
+        zoom: 1.0
+    },
+    ceratosaurus: { 
+        bottomGap: 240, 
+        realHeight: 3.62, 
+        realLength: 6.0,
+        contentHeightPx: 603, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    dimorphodon: { 
+        bottomGap: 67, 
+        realHeight: 1.16, 
+        realLength: 1.19,
+        contentHeightPx: 899, 
+        sourceRes: 1024,
+        dinoLeft: '20%',
+        refRight: '13%',
+        zoom: 1.0
+    },
+    protoceratops: { 
+        bottomGap: 235, 
+        realHeight: 1.03, 
+        realLength: 1.8,
+        contentHeightPx: 548, 
+        sourceRes: 1024,
+        dinoLeft: '10%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    gastonia: { 
+        bottomGap: 260, 
+        realHeight: 2.67, 
+        realLength: 5.0,
+        contentHeightPx: 520, 
+        sourceRes: 1024,
+        dinoLeft: '2%',
+        refRight: '5%',
+        zoom: 1.0
+    },
+    corythosaurus: { 
+        bottomGap: 265, 
+        realHeight: 4.73, 
+        realLength: 9.0,
+        contentHeightPx: 509, 
+        sourceRes: 1024,
+        dinoLeft: '2%',
+        refRight: '15%',
+        zoom: 0.9
+    },
+    maiasaura: { 
+        bottomGap: 220, 
+        realHeight: 5.3, 
+        realLength: 9.0,
+        contentHeightPx: 564, 
+        sourceRes: 1024,
+        dinoLeft: '8%',
+        refRight: '20%',
+        zoom: 0.8
+    },
+    fukuititan: { 
+        bottomGap: 277, 
+        realHeight: 5.0, 
+        realLength: 10.0,
+        contentHeightPx: 485, 
+        sourceRes: 1024,
+        dinoLeft: '2%',
+        refRight: '15%',
+        zoom: 0.9
+    },
+    fukuivenator: { 
+        bottomGap: 227, 
+        realHeight: 1.49, 
+        realLength: 2.5,
+        contentHeightPx: 577, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '11%',
+        zoom: 1.0
+    },
+    majungasaurus: { 
+        bottomGap: 275, 
+        realHeight: 3.24, 
+        realLength: 7.0,
+        contentHeightPx: 450, 
+        sourceRes: 1024,
+        dinoLeft: '0%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    coelophysis: { 
+        bottomGap: 255, 
+        realHeight: 1.46, 
+        realLength: 3.0,
+        contentHeightPx: 483, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    saltasaurus: { 
+        bottomGap: 250, 
+        realHeight: 6.48, 
+        realLength: 12.0,
+        contentHeightPx: 527, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '23%',
+        zoom: 0.9
+    },
+    rhamphorhynchus: { 
+        bottomGap: 40, 
+        realHeight: 0.8, 
+        realLength: 1.2,
+        contentHeightPx: 625, 
+        sourceRes: 1024,
+        dinoLeft: '20%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    pterodactylus: { 
+        bottomGap: -300, 
+        realHeight: 0.65, 
+        realLength: 1.0,
+        contentHeightPx: 633, 
+        sourceRes: 1024,
+        dinoLeft: '23%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    dsungaripterus: { 
+        bottomGap: 125, 
+        realHeight: 2.30, 
+        realLength: 3.0,
+        contentHeightPx: 733, 
+        sourceRes: 1024,
+        dinoLeft: '10%',
+        refRight: '15%',
+        zoom: 0.8
+    },
+    titanoboa: { 
+        bottomGap: 77, 
+        realHeight: 3.5, 
+        realLength: 12.8,
+        contentHeightPx: 878, 
+        sourceRes: 1024,
+        dinoLeft: '15%',
+        refRight: '18%',
+        zoom: 1.5
+    },
+    lambeosaurus: { 
+        bottomGap: 115, 
+        realHeight: 4.8, 
+        realLength: 9.0,
+        contentHeightPx: 841, 
+        sourceRes: 1024,
+        dinoLeft: '13%',
+        refRight: '25%',
+        zoom: 1.0
+    },
+    nanuqsaurus: { 
+        bottomGap: 230, 
+        realHeight: 2.8, 
+        realLength: 6.0,
+        contentHeightPx: 553, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    koshisaurus: { 
+        bottomGap: 345, 
+        realHeight: 1.2, 
+        realLength: 3.0,
+        contentHeightPx: 347, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '8%',
+        zoom: 1.0
+    },
+    tambatitan: { 
+        bottomGap: 285, 
+        realHeight: 7.3, 
+        realLength: 15.0,
+        contentHeightPx: 486, 
+        sourceRes: 1024,
+        dinoLeft: '8%',
+        refRight: '15%',
+        zoom: 0.96
+    },
+    yamatodraco: { 
+        bottomGap: 275, 
+        realHeight: 3.9, 
+        realLength: 7.5,
+        contentHeightPx: 510, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    paralitherizinosaurus: { 
+        bottomGap: 65, 
+        realHeight: 7.8, 
+        realLength: 8.5,
+        contentHeightPx: 895, 
+        sourceRes: 1024,
+        dinoLeft: '15%',
+        refRight: '23%',
+        zoom: 0.88
+    },
+    nipponosaurus: { 
+        bottomGap: 265, 
+        realHeight: 3.8, 
+        realLength: 7.6,
+        contentHeightPx: 477, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 0.8
+    },
+    wakinosaurus: { 
+        bottomGap: 175, 
+        realHeight: 4.35, 
+        realLength: 6.0,
+        contentHeightPx: 714, 
+        sourceRes: 1024,
+        dinoLeft: '10%',
+        refRight: '15%',
+        zoom: 0.9
+    },
+    sanchuryu: { 
+        bottomGap: 215, 
+        realHeight: 1.54, 
+        realLength: 2.5,
+        contentHeightPx: 599, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '10%',
+        zoom: 1.0
+    },
+    acrocanthosaurus: { 
+        bottomGap: 250, 
+        realHeight: 6.25, 
+        realLength: 11.5,
+        contentHeightPx: 529, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '20%',
+        zoom: 0.9
+    },
+    suchomimus: { 
+        bottomGap: 305, 
+        realHeight: 4.84, 
+        realLength: 11.0,
+        contentHeightPx: 431, 
+        sourceRes: 1024,
+        dinoLeft: '0%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    albertosaurus: { 
+        bottomGap: 255, 
+        realHeight: 5.11, 
+        realLength: 9.0,
+        contentHeightPx: 553, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '20%',
+        zoom: 0.9
+    },
+    daspletosaurus: { 
+        bottomGap: 210, 
+        realHeight: 5.45, 
+        realLength: 9.0,
+        contentHeightPx: 576, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '20%',
+        zoom: 0.9
+    },
+    gorgosaurus: { 
+        bottomGap: 260, 
+        realHeight: 4.47, 
+        realLength: 8.5,
+        contentHeightPx: 519, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '15%',
+        zoom: 0.9
+    },
+    eoraptor: { 
+        bottomGap: 255, 
+        realHeight: 0.62, 
+        realLength: 1.0,
+        contentHeightPx: 596, 
+        sourceRes: 1024,
+        dinoLeft: '25%',
+        refRight: '15%',
+        zoom: 1.0
+    },
+    herrerasaurus: { 
+        bottomGap: 215, 
+        realHeight: 2.72, 
+        realLength: 4.0,
+        contentHeightPx: 649, 
+        sourceRes: 1024,
+        dinoLeft: '5%',
+        refRight: '8%',
+        zoom: 1.0
+    },
+    compsognathus: { 
+        bottomGap: 245, 
+        realHeight: 0.56, 
+        realLength: 1.0,
+        contentHeightPx: 525, 
+        sourceRes: 1024,
+        dinoLeft: '25%',
+        refRight: '15%',
+        zoom: 1.0
+    },
     tyrannosaurus: { 
         bottomGap: 274, 
         realHeight: 4.5, 
         realLength: 12.3,
-        contentHeightPx: 405, 
+        contentHeightPx: 400, 
         sourceRes: 1024,
-        dinoLeft: '0',
-        refRight: '20%'
+        dinoLeft: '0%',
+        refRight: '15%',
+        zoom: 1.0
     },
     triceratops: { 
         bottomGap: 358, 
@@ -306,7 +868,8 @@ const SPECIMEN_METADATA = {
 }
 
 function getCyberAsset(dino) {
-    if (CYBER_ASSETS[dino.id]) return CYBER_ASSETS[dino.id];
+    const id = typeof dino === 'string' ? dino : dino.id;
+    if (CYBER_ASSETS[id]) return CYBER_ASSETS[id];
     return CYBER_ASSETS.category_theropod_v3;
 }
 

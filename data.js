@@ -315,8 +315,8 @@ const DINOSAURS = [
   },
   {
     id: "lambeosaurus",
-    name: "ラムベオサウルス",
-    kana: "らむべおさうるす",
+    name: "ランベオサウルス",
+    kana: "らんべおさうるす",
     scientificName: "Lambeosaurus lambei",
     era: "白亜紀後期",
     region: "北アメリカ",
@@ -1573,8 +1573,8 @@ const DINOSAURS = [
   },
   {
     id: "ichthyosaurus",
-    name: "イチチオサウルス",
-    kana: "いちちおさうるす",
+    name: "イクチオサウルス",
+    kana: "いくちおさうるす",
     scientificName: "Ichthyosaurus communis",
     era: "ジュラ紀前期",
     region: "ヨーロッパ周辺の海",
@@ -1817,7 +1817,7 @@ const DINOSAURS = [
     era: "ジュラ紀前期",
     region: "ヨーロッパ",
     diet: "肉食（昆虫・小動物）",
-    length: "翼開長1.0m",
+    length: "翼開長1.4m",
     weight: "2kg",
     description: "「2種類の歯」を意味する名を持つ翼竜。大きな頭部と長い尾が特徴で、地上でも比較的活発に動けたと考えられている。",
     bioTraits: [
@@ -2658,6 +2658,40 @@ const DINOSAURS = [
       { trait: "小型軽量", value: "高い敏捷性", detail: "森林地帯で外敵を避けながら生活していた" }
     ],
     image: "images/sasayamagnomus.webp"
+  },
+  {
+    id: "titanoboa",
+    name: "ティタノボア",
+    kana: "てぃたのぼあ",
+    scientificName: "Titanoboa cerrejonensis",
+    era: "古新世",
+    region: "南アメリカ",
+    diet: "肉食",
+    length: "12.8m",
+    weight: "1.1t",
+    description: "史上最大のヘビ。恐竜絶滅後の古新世に、現在のコロンビアにあたる湿熱な熱帯雨林に生息していた。現生のアナコンダを遥かに凌ぐ巨体を持ち、巨大なワニや魚を捕食していたと考えられている。",
+    bioTraits: [
+      { trait: "圧倒的サイズ", value: "史上最大", detail: "全長12mを超え、胴体の太さは1mに達した" },
+      { trait: "締め付け", value: "強力", detail: "巨体から繰り出される締め付けは獲物を一瞬で無力化する" }
+    ],
+    image: "images/titanoboa.webp"
+  },
+  {
+    id: "nanuqsaurus",
+    name: "ナヌークサウルス",
+    kana: "なぬーくさうるす",
+    scientificName: "Nanuqsaurus hoglundi",
+    era: "白亜紀後期",
+    region: "北アメリカ（アラスカ）",
+    diet: "肉食",
+    length: "6.0m",
+    weight: "1.0t",
+    description: "北極圏の厳しい環境に適応したティラノサウルス類。名前はイヌピアック語で「ホッキョクグマ・トカゲ」を意味する。ティラノサウルスに近い仲間だが、資源の限られた極地で効率よく活動するために小型化したと考えられている。",
+    bioTraits: [
+      { trait: "防寒羽毛", value: "可能性大", detail: "極地の寒さに耐えるための絶縁性の羽毛" },
+      { trait: "感覚器官", value: "鋭敏", detail: "冬の長い夜でも獲物を探せる優れた嗅覚と視覚" }
+    ],
+    image: "images/nanuqsaurus.webp"
   }
 ];
 
