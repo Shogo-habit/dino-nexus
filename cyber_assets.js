@@ -162,6 +162,7 @@ const CYBER_ASSETS = {
     dinichthys: 'images/cyber/dinichthys.png',
     paralititan: 'images/cyber/paralititan.png',
     dunkleosteus: 'images/cyber/dunkleosteus.png',
+    sarcosuchus: 'images/cyber/sarcosuchus.png',
     human: 'images/cyber/human_front.png',
 };
 
@@ -1595,6 +1596,17 @@ const SPECIMEN_METADATA = {
         dinoLeft: '3%',
         refRight: '8%',
         zoom: 1.2
+    },
+    sarcosuchus: { 
+        bottomGap: 415, 
+        realHeight: 1.2, 
+        realLength: 12.0,
+        contentHeightPx: 75, 
+        sourceRes: 1024,
+        dinoLeft: '0%',
+        refRight: '6%',
+        zoom: 0.8,
+        refZoom: 1.3
     },
     tyrannosaurus: {
         bottomGap: 274,

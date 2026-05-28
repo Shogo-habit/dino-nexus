@@ -6,7 +6,7 @@
     <title>Dino-Nexus | Digital Dinosaur Museum</title>
     <meta name="description" content="Dino-Nexus: デジタル恐竜図鑑。150種以上の恐竜データを最新の学説に基づき網羅。AI検索に最適化された次世代の生物学的アーカイブ。">
     <link rel="canonical" href="https://dino-nexus.example.com/">
-    <link rel="stylesheet" href="style.css?v=5.3.3">
+    <link rel="stylesheet" href="style.css?v=5.3.29">
     <!-- Base Schema -->
     <script type="application/ld+json">
     {
@@ -40,11 +40,11 @@
             <a href="#dictionary" class="nav-link" data-link="dictionary" aria-label="恐竜図鑑を表示">
                 <span class="nav-icon" aria-hidden="true">☷</span> 恐竜図鑑
             </a>
-            <a href="#vs-sim" class="nav-link" data-link="vs-sim" aria-label="バトルシミュレーターを起動">
-                <span class="nav-icon" aria-hidden="true">⚔</span> バトルＳＩＭ
+            <a href="#world-map" class="nav-link" data-link="world-map" aria-label="世界地図から探索">
+                <span class="nav-icon" aria-hidden="true">◰</span> 世界地図
             </a>
-            <a href="#news-feed" class="nav-link" data-link="news-feed" aria-label="最新ニュースを表示">
-                <span class="nav-icon" aria-hidden="true">◈</span> 最新ニュース
+            <a href="#topics" class="nav-link" data-link="topics" aria-label="恐竜に関するトピックスを読む">
+                <span class="nav-icon" aria-hidden="true">▧</span> トピックス
             </a>
             <a href="#my-collection" class="nav-link" data-link="my-collection" aria-label="自分の観測データを確認">
                 <span class="nav-icon" aria-hidden="true">📊</span> マイ図鑑
@@ -57,9 +57,11 @@
 
     <main id="app-container">
         <!-- Content will be injected here by app.js -->
-        <div class="loader">
-            <div class="loader-bar"></div>
-            <p>データ・ストリーム初期化中...</p>
+        <div id="app-content-wrapper">
+            <div class="loader">
+                <div class="loader-bar"></div>
+                <p>データ・ストリーム初期化中...</p>
+            </div>
         </div>
     </main>
 
@@ -81,8 +83,8 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="data.js?v=5.3.3"></script>
-    <script src="cyber_assets.js?v=5.3.3"></script>
-    <script src="app.js?v=5.3.3"></script>
+    <script src="data.js?v=5.3.29"></script>
+    <script src="cyber_assets.js?v=5.3.29"></script>
+    <script src="app.js?v=5.3.29"></script>
 </body>
 </html>
