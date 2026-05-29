@@ -1,0 +1,102 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { DINOSAURS } from '../../data/dinosaurs';
+---
+
+<Layout title="マイ・アーカイブ | Dino-Nexus" activeTab="my-collection" description="保存した恐竜データのアーカイブ。観測済み標本データベース。">
+    <section class="page-header">
+        <h2 class="page-title">マイ・アーカイブ</h2>
+        <p class="page-subtitle">観測済み標本データベース</p>
+    </section>
+
+    <!-- Progress Indicator Panel -->
+    <div class="hud-panel" style="margin-bottom: 40px; border-color: var(--secondary-neon);">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-family: var(--font-mono); font-size: 12px;">
+            <span>アーカイブ同期進捗</span>
+            <span id="collection-progress-text">0 / {DINOSAURS.length} (0%)</span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="collection-progress-bar" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state hud-panel" id="collection-empty-state" style="text-align: center; padding: 60px; display: none;">
+        <p style="color: var(--text-dim); margin-bottom: 20px;">観測データがありません。アーカイブから標本を選択して保存してください。</p>
+        <a href="/dictionary" class="nav-link" style="display: inline-block; text-decoration: none;">[ アーカイブへ移動 ]</a>
+    </div>
+
+    <!-- Collection Grid -->
+    <div class="dino-grid" id="collection-grid-content">
+        {DINOSAURS.map(d => (
+            <div class="dino-card hud-panel" data-id={d.id} style="display: none; cursor: pointer;">
+                <a href={`/dictionary/${d.id}`} style="text-decoration: none; color: inherit; display: block; height: 100%;">
+                    <div class="card-img-wrap">
+                        <img src={`/${d.image}`} alt={d.name} loading="lazy" decoding="async" width="400" height="225">
+                        <div class="collected-badge">OBSERVED</div>
+                    </div>
+                    <div class="card-info">
+                        <h3 class="card-title">{d.name}</h3>
+                        <div class="card-tags" style="display: flex; gap: 5px; flex-wrap: wrap;">
+                            <span class="card-tag group-tag">{d.group || '未分類'}</span>
+                            <span class="card-tag">{d.era}</span>
+                            <span class="card-tag">{d.diet}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        ))}
+    </div>
+
+    <!-- Client-side collection loaders -->
+    <script>
+        import { DINOSAURS } from '../../data/dinosaurs';
+
+        const COLLECTION_KEY = 'dino_nexus_saved_observations';
+
+        function initMyCollection() {
+            const progressText = document.getElementById('collection-progress-text');
+            const progressBar = document.getElementById('collection-progress-bar');
+            const emptyState = document.getElementById('collection-empty-state');
+            const gridContent = document.getElementById('collection-grid-content');
+
+            if (!progressText || !progressBar || !emptyState || !gridContent) return;
+
+            // Load observed list
+            const savedStr = localStorage.getItem(COLLECTION_KEY);
+            const observedIds: string[] = savedStr ? JSON.parse(savedStr) : [];
+            const totalCount = DINOSAURS.length;
+            const observedCount = observedIds.length;
+            const progressPercent = Math.round((observedCount / totalCount) * 100);
+
+            // Update Progress UI
+            progressText.innerText = `${observedCount} / ${totalCount} (${progressPercent}%)`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            // Filter cards visibility
+            const cards = Array.from(gridContent.getElementsByClassName('dino-card')) as HTMLElement[];
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const id = card.getAttribute('data-id');
+                if (id && observedIds.includes(id)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Toggle Empty State
+            if (visibleCount === 0) {
+                emptyState.style.display = 'block';
+                gridContent.style.display = 'none';
+            } else {
+                emptyState.style.display = 'none';
+                gridContent.style.display = 'grid';
+            }
+        }
+
+        document.addEventListener('astro:page-load', initMyCollection);
+    </script>
+</Layout>

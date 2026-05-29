@@ -1,0 +1,97 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="プライバシーポリシー & 免責事項 | Dino-Nexus" activeTab="" description="Dino-Nexusの個人情報保護方針、免責事項、クッキーポリシー、およびアフィリエイト広告掲載に関する宣言ページです。">
+    <div class="privacy-container">
+        <!-- HEADER -->
+        <section class="page-header" style="margin-bottom: 30px;">
+            <h2 class="page-title">法的開示情報</h2>
+            <p class="page-subtitle">PRIVACY POLICY & DISCLAIMERS</p>
+        </section>
+
+        <!-- CONTENT PANEL -->
+        <div class="hud-panel privacy-panel">
+            <div class="hud-corner top-left"></div>
+            <div class="hud-corner bottom-right"></div>
+
+            <div class="privacy-section">
+                <h3>01. アフィリエイト広告の掲載について (AFFILIATE DISCLOSURE)</h3>
+                <p>
+                    Dino-Nexus（以下「当サイト」）は、「もしもアフィリエイト」などの各種アフィリエイトプログラムに参加しています。<br>
+                    当サイト内の商品紹介ボタンや画像リンクを経由して、Amazon.co.jpやその他のECサイトにて商品が購入された場合、当サイトは適格販売等により一定の紹介報酬を得る仕組みを利用しています。
+                </p>
+            </div>
+
+            <div class="privacy-section">
+                <h3>02. 個人情報の収集とCookieポリシー (COOKIE POLICY)</h3>
+                <p>
+                    当サイトでは、利用体験の向上やアクセス解析のために「Cookie（クッキー）」を使用する場合があります。Cookieはブラウザに保存される匿名データであり、氏名や住所、メールアドレスなどの個人を特定する情報は一切含まれません。<br>
+                    ユーザーはブラウザの設定により、Cookieの受け入れを拒否することができます。
+                </p>
+            </div>
+
+            <div class="privacy-section">
+                <h3>03. 免責事項 (DISCLAIMER)</h3>
+                <p>
+                    当サイトで提供される恐竜のスペック、生息年代、分布等の古生物データは、作成時点における一般公開された学説や発見に基づき細心の注意を払って掲載していますが、その正確性や妥当性を恒久的に保証するものではありません。<br>
+                    当サイトのコンテンツの利用、またはリンク先（アフィリエイト提携先ECサイト等）で発生したあらゆるトラブル、損失、損害について、当サイトおよび運営者は一切の責任を負いかねます。ご購入に際しては、リンク先サイトの利用規約や返品ポリシー等を事前にご確認ください。
+                </p>
+            </div>
+
+            <div class="privacy-section">
+                <h3>04. 著作権について (COPYRIGHT)</h3>
+                <p>
+                    当サイトに掲載されている恐竜のオリジナルイラスト、テキスト、およびソースコードの著作権は当サイト運営者に帰属します。<br>
+                    アフィリエイトプログラムを介して表示されている商品画像等の著作権・商標権は、それぞれの製造元、販売元、および権利所有者に帰属します。無断転載・複製・二次配布は固くお断りいたします。
+                </p>
+            </div>
+
+            <div class="privacy-section" style="border-bottom: none; padding-bottom: 0; margin-bottom: 0;">
+                <h3>運営管理情報</h3>
+                <p style="font-family: var(--font-mono); font-size: 12px; color: var(--primary-neon);">
+                    DINO-NEXUS ARCHIVAL CORE SYSTEM<br>
+                    最終改訂日: 2026年5月29日
+                </p>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="/" class="nav-link" style="text-decoration: none;">[ コマンドセンターに戻る ]</a>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .privacy-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .privacy-panel {
+        padding: 40px;
+        background: rgba(1, 10, 18, 0.6);
+        border-color: rgba(0, 242, 255, 0.15);
+    }
+    
+    .privacy-section {
+        border-bottom: 1px dashed rgba(0, 242, 255, 0.1);
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+    }
+    
+    .privacy-section h3 {
+        font-family: var(--font-mono);
+        font-size: 15px;
+        color: var(--primary-neon);
+        margin: 0 0 15px 0;
+        letter-spacing: 1px;
+    }
+    
+    .privacy-section p {
+        font-size: 13.5px;
+        line-height: 1.8;
+        color: var(--text-dim);
+        margin: 0;
+    }
+</style>

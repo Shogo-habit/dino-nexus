@@ -1,0 +1,60 @@
+
+================= STEP 61: multi_replace_file_content =================
+{
+  "name": "multi_replace_file_content",
+  "args": {
+    "Description": "\"Fix ReferenceError: NEWS is not defined on Home page by replacing News Feed with Topics and deleting the unused renderNews function.\"",
+    "Instruction": "\"Replace NEWS references in renderHome with TOPICS and remove renderNews.\"",
+    "ReplacementChunks": "[{\"AllowMultiple\":false,\"EndLine\":311,\"ReplacementContent\":\"function renderHome() {\\n  const randomIndex = Math.floor(Math.random() * DINOSAURS.length);\\n  const pickupDino = DINOSAURS[randomIndex];\\n  const topicItems = typeof TOPICS !== 'undefined' ? TOPICS.slice(0, 2) : [];\\n\\n  return `\\n    <section class=\\\"page-header\\\">\\n      <h2 class=\\\"page-title\\\">コマンドセンター</h2>\\n      <p class=\\\"page-subtitle\\\">システムステータス: 全アーカイブアクセス可能</p>\\n    </section>\\n\\n    <div class=\\\"home-layout\\\">\\n        <div class=\\\"dino-day-hero hud-panel\\\">\\n            <div class=\\\"hud-corner top-left\\\"></div>\\n            <div class=\\\"hud-corner bottom-right\\\"></div>\\n            <div class=\\\"hero-img-container\\\" style=\\\"background-image: url('${pickupDino.image}')\\\"></div>\\n            <div class=\\\"hero-content\\\">\\n                <span class=\\\"hero-label\\\">【本日のピックアップ標本】</span>\\n                <h3 class=\\\"hero-name\\\" style=\\\"font-size: 32px; margin: 10px 0;\\\">${pickupDino.name}</h3>\\n                <p class=\\\"hero-desc\\\" style=\\\"color: var(--text-dim); line-height: 1.6; margin-bottom: 20px;\\\">${pickupDino.description}</p>\\n                <a href=\\\"#dictionary/${pickupDino.id}\\\" class=\\\"nav-link\\\" style=\\\"display: inline-block; width: fit-content;\\\">詳細データを閲覧</a>\\n            </div>\\n        </div>\\n\\n        <div class=\\\"news-summary-sidebar hud-panel\\\">\\n            <h4 style=\\\"margin-bottom: 20px; border-bottom: 1px solid var(--panel-border); padding-bottom: 10px;\\\">最新トピックス</h4>\\n            ${topicItems.map(item => `\\n                <div class=\\\"news-item-sm\\\" style=\\\"margin-bottom: 20px; cursor: pointer;\\\" onclick=\\\"location.hash='#topics/${item.id}'\\\">\\n                    <span style=\\\"font-size: 10px; color: var(--primary-neon);\\\">${item.date}</span>\\n                    <h5 style=\\\"margin: 5px 0;\\\">${item.title}</h5>\\n                    <p style=\\\"font-size: 12px; color: var(--text-dim);\\\">${item.summary.slice(0,\n<truncated 4561 bytes>",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Replacing NEWS references with TOPICS in app.js\"",
+    "toolSummary": "\"Modifying app.js\""
+  }
+}
+
+================= STEP 105: replace_file_content =================
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"Remove the cursor-based 3D tilting parallax effect from the world map.\"",
+    "EndLine": "1464",
+    "Instruction": "\"Remove the mousemove and mouseleave tilt event listeners from attachWorldMapEvents.\"",
+    "ReplacementContent": "\"\"",
+    "StartLine": "1446",
+    "TargetContent": "\"    // Parallax HUD container tilt\\n    const containerRotX = -10;\\n    const containerRotY = 15;\\n    \\n    stage.addEventListener('mousemove', (e) => {\\n        const rect = stage.getBoundingClientRect();\\n        const px = (e.clientX - rect.left) / rect.width - 0.5;\\n        const py = (e.clientY - rect.top) / rect.height - 0.5;\\n        \\n        const targetRotX = containerRotX - py * 12;\\n        const targetRotY = containerRotY + px * 12;\\n        \\n        container.style.transform = `rotateX(${targetRotX.toFixed(1)}deg) rotateY(${targetRotY.toFixed(1)}deg)`;\\n    });\\n    \\n    stage.addEventListener('mouseleave', () => {\\n        container.style.transform = `rotateX(${containerRotX}deg) rotateY(${containerRotY}deg)`;\\n    });\\n    \"",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Removing tilt events from app.js\"",
+    "toolSummary": "\"Modifying app.js\""
+  }
+}
+
+================= STEP 191: replace_file_content =================
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"Embed the background map image directly inside the SVG element using an `<image>` element to prevent misalignment and sizing issues.\"",
+    "EndLine": "1385",
+    "Instruction": "\"Remove background-image inline style from .cyber-map-container and add the <image> tag to the top of the <svg> element.\"",
+    "ReplacementContent": "\"            <!-- マップコンテナ -->\\n            <div class=\\\"cyber-map-container\\\" id=\\\"map-3d-container\\\">\\n                <svg viewBox=\\\"0 0 2816 1536\\\" class=\\\"cyber-world-map\\\" id=\\\"map-hotspots-svg\\\">\\n                    <image href=\\\"images/cyber_world_map.png\\\" x=\\\"0\\\" y=\\\"0\\\" width=\\\"2816\\\" height=\\\"1536\\\" />\"",
+    "StartLine": "1382",
+    "TargetContent": "\"            <!-- マップコンテナ -->\\n            <div class=\\\"cyber-map-container\\\" id=\\\"map-3d-container\\\" style=\\\"background-image: url('images/cyber_world_map.png');\\\">\\n                <svg viewBox=\\\"0 0 2816 1536\\\" class=\\\"cyber-world-map\\\" id=\\\"map-hotspots-svg\\\">\"",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Embedding map image in SVG in app.js\"",
+    "toolSummary": "\"Modifying app.js\""
+  }
+}
+
+================= STEP 319: multi_replace_file_content =================
+{
+  "name": "multi_replace_file_content",
+  "args": {
+    "Description": "\"Split the single Eurasia region into three separate sectors (Europe, Russia, and Asia) on the world map and the dictionary filter. This makes the hotspots hoverable/clickable, links scanning coordinates/animations to their new regional centers, adds distinct metadata, and separates Russian specimens ('アジア（ロシア）') from general Asian specimens in searches and map scanning.\"",
+    "Instruction": "\"Dividing Eurasia into Europe, Russia, and Asia across REGIONS, matchesRegion, REGION_MAP, REGION_METADATA, REGION_CENTERS, and SVG hotspots.\"",
+    "ReplacementChunks": "[{\"AllowMultiple\":false,\"EndLine\":26,\"ReplacementContent\":\"const REGIONS = [\\n    { id: '北アメリカ', label: '北アメリカ' },\\n    { id: '南アメリカ', label: '南アメリカ' },\\n    { id: 'アジア', label: 'アジア' },\\n    { id: 'ロシア', label: 'ロシア' },\\n    { id: 'アフリカ', label: 'アフリカ' },\\n    { id: 'ヨーロッパ', label: 'ヨーロッパ' },\\n    { id: '日本', label: '日本' },\\n    { id: '海洋', label: '海洋' }\\n];\",\"StartLine\":18,\"TargetContent\":\"const REGIONS = [\\n    { id: '北アメリカ', label: '北アメリカ' },\\n    { id: '南アメリカ', label: '南アメリカ' },\\n    { id: 'アジア', label: 'アジア' },\\n    { id: 'アフリカ', label: 'アフリカ' },\\n    { id: 'ヨーロッパ', label: 'ヨーロッパ' },\\n    { id: '日本', label: '日本' },\\n    { id: '海洋', label: '海洋' }\\n];\"},{\"AllowMultiple\":false,\"EndLine\":561,\"ReplacementContent\":\"            const matchesRegion = !regionVal || \\n                (regionVal === '海洋' ? \\n                    (d.region.includes('海') && !d.region.includes('北海道')) : \\n                    (regionVal === 'アジア' ? \\n                        (d.region.includes('アジア') && !d.region.includes('ロシア')) :\\n                        d.region.includes(regionVal)));\",\"StartLine\":555,\"TargetContent\":\"            const matchesRegion = !regionVal || \\n                (regionVal === '海洋' ? \\n                    (d.region.includes('海') && !d.region.includes('北海道')) : \\n                    d.region.includes(regionVal));\"},{\"AllowMultiple\":false,\"EndLine\":1271,\"ReplacementContent\":\"const REGION_MAP = {\\n  '北アメリカ': ['北アメリカ'],\\n  '南アメリカ': ['南アメリカ'],\\n  'ヨーロッパ': ['ヨーロッパ'],\\n  'ロシア': ['ロシア'],\\n  'アジア': ['アジア'],\\n  'アフリカ': ['アフリカ'],\\n  'オセアニア': ['オセアニア'],\\n  '日本': ['日本'],\\n  '海洋': ['海洋']\\n};\\n\\nconst REGION_METADATA = {\\n  '北アメリカ'\n<truncated 7983 bytes>",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Applying regional split changes in app.js\"",
+    "toolSummary": "\"Edit file app.js\""
+  }
+}

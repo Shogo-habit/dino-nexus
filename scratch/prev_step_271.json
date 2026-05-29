@@ -1,0 +1,15 @@
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"Modify routes in app.js\"",
+    "EndLine": "52",
+    "Instruction": "\"Add topics and world-map route mappings, and remove old routes.\"",
+    "ReplacementContent": "\"// --- ROUTER CONFIG ---\\nconst routes = {\\n  home: renderHome,\\n  dictionary: renderDictionary,\\n  'dictionary/:id': renderDetail,\\n  'topics': renderTopics,\\n  'glossary': renderGlossary,\\n  'my-collection': renderMyCollection,\\n  'world-map': renderWorldMap\\n};\"",
+    "StartLine": "42",
+    "TargetContent": "\"// --- ROUTER CONFIG ---\\nconst routes = {\\n  home: renderHome,\\n  dictionary: renderDictionary,\\n  'dictionary/:id': renderDetail,\\n  'vs-sim': renderVsSim,\\n  'news-feed': renderNews,\\n  'glossary': renderGlossary,\\n  'my-collection': renderMyCollection\\n};\"",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Updating app.js routes object\"",
+    "toolSummary": "\"Replace file content\""
+  }
+}

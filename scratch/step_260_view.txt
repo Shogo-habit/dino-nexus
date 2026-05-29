@@ -1,0 +1,82 @@
+Created At: 2026-05-25T12:05:42Z
+Completed At: 2026-05-25T12:05:42Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1869
+Total Bytes: 84788
+Showing lines 1261 to 1360
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1261: 
+1262: let CACHED_MAP_DOTS = null;
+1263: 
+1264: function generateHighResDots() {
+1265:     if (CACHED_MAP_DOTS) return CACHED_MAP_DOTS;
+1266:     
+1267:     const tempSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+1268:     tempSvg.setAttribute("viewBox", "0 0 900 450");
+1269:     tempSvg.style.position = "absolute";
+1270:     tempSvg.style.width = "0";
+1271:     tempSvg.style.height = "0";
+1272:     tempSvg.style.pointerEvents = "none";
+1273:     tempSvg.id = "temp-map-detector";
+1274:     
+1275:     const paths = {};
+1276:     for (const [region, d] of Object.entries(WORLD_MAP_PATHS)) {
+1277:         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+1278:         path.setAttribute("d", d);
+1279:         tempSvg.appendChild(path);
+1280:         paths[region] = path;
+1281:     }
+1282:     document.body.appendChild(tempSvg);
+1283:     
+1284:     const dots = [];
+1285:     const pt = tempSvg.createSVGPoint();
+1286:     
+1287:     const stepX = 5.0; 
+1288:     const stepY = 7.0;
+1289:     
+1290:     for (let y = 10; y < 440; y += stepY) {
+1291:         for (let x = 10; x < 890; x += stepX) {
+1292:             pt.x = x;
+1293:             pt.y = y;
+1294:             let regionFound = null;
+1295:             
+1296:             for (const [region, path] of Object.entries(paths)) {
+1297:                 if (path.isPointInFill(pt)) {
+1298:                     regionFound = region;
+1299:                     break;
+1300:                 }
+1301:             }
+1302:             
+1303:             if (regionFound) {
+1304:                
+<truncated 1088 bytes>
+nentalGlowPaths = `
+1333:       <path class="map-region-glow" data-region="北アメリカ" d="M 60,40 L 290,40 L 320,180 L 250,220 L 180,240 L 80,180 Z" />
+1334:       <path class="map-region-glow" data-region="南アメリカ" d="M 230,220 L 320,220 L 300,360 L 270,440 L 220,380 Z" />
+1335:       <path class="map-region-glow" data-region="ヨーロッパ" d="M 440,80 L 580,70 L 590,170 L 450,190 Z" />
+1336:       <path class="map-region-glow" data-region="アジア" d="M 580,70 L 890,60 L 920,240 L 740,280 L 620,250 L 590,170 Z" />
+1337:       <path class="map-region-glow" data-region="アフリカ" d="M 460,190 L 590,180 L 640,280 L 570,390 L 480,350 Z" />
+1338:       <path class="map-region-glow" data-region="オセアニア" d="M 750,280 L 890,290 L 870,380 L 760,370 Z" />
+1339:       <path class="map-region-glow" data-region="日本" d="M 830,120 L 880,120 L 880,170 L 830,170 Z" />
+1340:   `;
+1341: 
+1342:   return `
+1343:     <section class="page-header hud-header-frame">
+1344:       <div class="hud-header-title">TACTICAL SITUATION OVERVIEW</div>
+1345:       <div class="hud-header-sub">// ACTIVE SYSTEMS: ONLINE // GLOBAL OPERATIONS TACTICAL VIEW</div>
+1346:     </section>
+1347: 
+1348:     <div class="world-map-layout">
+1349:         <!-- 3D世界地図ステージ -->
+1350:         <div class="map-3d-stage">
+1351:             <!-- 左上: SECTOR STATUS -->
+1352:             <div class="hud-widget hud-sector-status">
+1353:                 <div class="hud-widget-header">SECTOR READOUTS</div>
+1354:                 <div class="hud-widget-body" id="hud-log-stream">
+1355:                     <div>[S_ALPHA: OK]</div>
+1356:                     <div>[S_BETA: STABLE]</div>
+1357:                     <div>[S_GAMMA: ALERT]</div>
+1358:                     <div>[CORE_TEMP: 36.8C]</div>
+1359:                 </div>
+1360:             </div>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

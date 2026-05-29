@@ -1,0 +1,15 @@
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"Set fill='none' inline for HUD background circles, lines, and grid path in app.js.\"",
+    "EndLine": "1631",
+    "Instruction": "\"Add fill='none' inline to circle, line, and path elements in layer-bottom SVG to prevent default black fill silhouettes.\"",
+    "ReplacementContent": "\"            <!-- 3Dマップコンテナ -->\\n            <div class=\\\"cyber-map-container\\\" id=\\\"map-3d-container\\\">\\n                <div class=\\\"map-layer layer-bottom\\\">\\n                    <svg viewBox=\\\"0 0 900 450\\\" class=\\\"cyber-world-map\\\">\\n                        <circle cx=\\\"450\\\" cy=\\\"225\\\" r=\\\"210\\\" class=\\\"hud-ring-solid\\\" fill=\\\"none\\\" />\\n                        <circle cx=\\\"450\\\" cy=\\\"225\\\" r=\\\"280\\\" class=\\\"hud-ring\\\" fill=\\\"none\\\" />\\n                        <line x1=\\\"150\\\" y1=\\\"225\\\" x2=\\\"750\\\" y2=\\\"225\\\" class=\\\"hud-axis\\\" fill=\\\"none\\\" />\\n                        <line x1=\\\"450\\\" y1=\\\"10\\\" x2=\\\"450\\\" y2=\\\"440\\\" class=\\\"hud-axis\\\" fill=\\\"none\\\" />\\n                        \\n                        <!-- 球面経緯線を描画するパス -->\\n                        <path id=\\\"grid-lines-path\\\" class=\\\"map-grid-line\\\" fill=\\\"none\\\" d=\\\"\\\" />\\n                    </svg>\\n                </div>\"",
+    "StartLine": "1619",
+    "TargetContent": "\"            <!-- 3Dマップコンテナ -->\\n            <div class=\\\"cyber-map-container\\\" id=\\\"map-3d-container\\\">\\n                <div class=\\\"map-layer layer-bottom\\\">\\n                    <svg viewBox=\\\"0 0 900 450\\\" class=\\\"cyber-world-map\\\">\\n                        <circle cx=\\\"450\\\" cy=\\\"225\\\" r=\\\"210\\\" class=\\\"hud-ring-solid\\\" />\\n                        <circle cx=\\\"450\\\" cy=\\\"225\\\" r=\\\"280\\\" class=\\\"hud-ring\\\" />\\n                        <line x1=\\\"150\\\" y1=\\\"225\\\" x2=\\\"750\\\" y2=\\\"225\\\" class=\\\"hud-axis\\\" />\\n                        <line x1=\\\"450\\\" y1=\\\"10\\\" x2=\\\"450\\\" y2=\\\"440\\\" class=\\\"hud-axis\\\" />\\n                        \\n                        <!-- 球面経緯線を描画するパス -->\\n                        <path id=\\\"grid-lines-path\\\" class=\\\"map-grid-line\\\" d=\\\"\\\" />\\n                    </svg>\\n                </div>\"",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Setting fill='none' inline on SVG background elements\"",
+    "toolSummary": "\"Replace file content\""
+  }
+}

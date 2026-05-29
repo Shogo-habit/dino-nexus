@@ -1,0 +1,59 @@
+Created At: 2026-05-27T12:34:51Z
+Completed At: 2026-05-27T12:34:51Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1671
+Total Bytes: 75593
+Showing lines 340 to 390
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+340:                 </div>
+341:                 ${ERAS.map((e, index) => `
+342:                     <div class="timeline-era ${activeEra === e.id ? 'active' : ''} ${index < ERAS.length - 1 ? 'has-arrow' : ''}" data-era="${e.id}">
+343:                         <div class="era-marker"></div>
+344:                         <span class="era-label">${e.label}</span>
+345:                         <span class="era-period">${e.period}</span>
+346:                     </div>
+347:                 `).join('')}
+348:             </div>
+349:         </div>
+350:     `;
+351: }
+352: 
+353: function renderMap(activeRegion) {
+354:     return `
+355:         <div class="timeline-container region-timeline">
+356:             <div class="timeline-label-fixed" style="padding: 0 30px; font-family: var(--font-mono); font-size: 12px; color: var(--primary-neon); border-right: 1px solid var(--panel-border); height: 100%; display: flex; align-items: center; white-space: nowrap; background: rgba(0, 242, 255, 0.05);">
+357:                 地域フィルタ
+358:             </div>
+359:             <div class="timeline-track">
+360:                 <div class="timeline-region ${!activeRegion ? 'active' : ''}" data-region="">
+361:                     <div class="era-marker"></div>
+362:                     <span class="era-label">すべて</span>
+363:                 </div>
+364:                 ${REGIONS.map(r => `
+365:                     <div class="timeline-region ${activeRegion === r.id ? 'active' : ''}" data-region="${r.id}">
+366:                         <div class="era-marker"></div>
+367:                         <span class="era-label">${r.label}</span>
+368:                     </div>
+369:                 `).join('')}
+370:             </div>
+371:         </div>
+372:     `;
+373: }
+374: 
+375: function renderGroupFilter(activeGroup) {
+376:     return `
+377:         <div class="timeline-container group-timeline">
+378:             <div class="timeline-label-fixed" style="padding: 0 30px; font-family: var(--font-mono); font-size: 12px; color: var(--primary-neon); border-right: 1px solid var(--panel-border); height: 100%; display: flex; align-items: center; white-space: nowrap; background: rgba(0, 242, 255, 0.05);">
+379:                 系統フィルタ
+380:             </div>
+381:             <div class="timeline-track">
+382:                 <div class="timeline-group ${!activeGroup ? 'active' : ''}" data-group="">
+383:                     <div class="era-marker"></div>
+384:                     <span class="era-label">すべて</span>
+385:                 </div>
+386:                 ${GROUPS.map(g => `
+387:                     <div class="timeline-group ${activeGroup === g.id ? 'active' : ''}" data-group="${g.id}">
+388:                         <div class="era-marker"></div>
+389:                         <span class="era-label">${g.label}</span>
+390:                     </div>
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

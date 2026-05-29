@@ -1,0 +1,51 @@
+Created At: 2026-05-27T12:05:04Z
+Completed At: 2026-05-27T12:05:04Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1717
+Total Bytes: 77702
+Showing lines 1040 to 1082
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1040:         log = `互角の攻防が展開されたが、最終局面で${winner.name}の機動力が${loser.name}の死角を突く。僅差で${winner.name}が戦闘優位を確保した。 [判定: 薄氷の勝利]`;
+1041:     }
+1042: 
+1043:     return `【勝者: ${winner.name}】<br>${log}`;
+1044: }
+1045: 
+1046: function renderNews() {
+1047:   return `
+1048:     <section class="page-header">
+1049:         <h2 class="page-title">サイエンス・フィード</h2>
+1050:         <p class="page-subtitle">セキュリティクリアランス: 承認済み</p>
+1051:     </section>
+1052: 
+1053:     <div class="news-list">
+1054:         ${NEWS.map(item => {
+1055:             let borderColor = 'var(--secondary-neon)';
+1056:             if (item.category === 'RESEARCH') borderColor = 'var(--primary-neon)';
+1057:             if (item.category === 'EVENT') borderColor = 'var(--alert-neon)';
+1058:             
+1059:             return `
+1060:             <div class="hud-panel" style="margin-bottom: 20px; border-left: 5px solid ${borderColor}">
+1061:                 <div style="display:flex; justify-content: space-between; margin-bottom: 10px;">
+1062:                     <span style="font-family: var(--font-mono); color: var(--primary-neon); font-size: 12px;">[ ${item.category} ]</span>
+1063:                     <span style="font-family: var(--font-mono); color: var(--text-dim); font-size: 12px;">${item.date}</span>
+1064:                 </div>
+1065:                 <h3 style="margin-bottom: 10px;">${item.title}</h3>
+1066:                 <p style="font-size: 14px; color: var(--text-dim); line-height: 1.6;">${item.summary}</p>
+1067:                 <div style="margin-top: 15px; font-size: 10px; text-transform: uppercase; color: var(--alert-neon); font-family: var(--font-mono);">
+1068:                     アクセスレベル: ${item.securityLevel}
+1069:                 </div>
+1070:             </div>
+1071:             `;
+1072:         }).join('')}
+1073:     </div>
+1074:   `;
+1075: }
+1076: 
+1077: function attachVsSimEvents() {
+1078:     // Reset state on entry
+1079:     selection = { 1: null, 2: null };
+1080: }
+1081: 
+1082: // Start the APP
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

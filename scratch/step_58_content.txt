@@ -1,0 +1,59 @@
+Created At: 2026-05-27T12:05:00Z
+Completed At: 2026-05-27T12:05:00Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1717
+Total Bytes: 77702
+Showing lines 265 to 315
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+265: }
+266: 
+267: // --- RENDERERS ---
+268: 
+269: function renderHome() {
+270:   const randomIndex = Math.floor(Math.random() * DINOSAURS.length);
+271:   const pickupDino = DINOSAURS[randomIndex];
+272:   const newsItems = NEWS.slice(0, 2);
+273: 
+274:   return `
+275:     <section class="page-header">
+276:       <h2 class="page-title">コマンドセンター</h2>
+277:       <p class="page-subtitle">システムステータス: 全アーカイブアクセス可能</p>
+278:     </section>
+279: 
+280:     <div class="home-layout">
+281:         <div class="dino-day-hero hud-panel">
+282:             <div class="hud-corner top-left"></div>
+283:             <div class="hud-corner bottom-right"></div>
+284:             <div class="hero-img-container" style="background-image: url('${pickupDino.image}')"></div>
+285:             <div class="hero-content">
+286:                 <span class="hero-label">【本日のピックアップ標本】</span>
+287:                 <h3 class="hero-name" style="font-size: 32px; margin: 10px 0;">${pickupDino.name}</h3>
+288:                 <p class="hero-desc" style="color: var(--text-dim); line-height: 1.6; margin-bottom: 20px;">${pickupDino.description}</p>
+289:                 <a href="#dictionary/${pickupDino.id}" class="nav-link" style="display: inline-block; width: fit-content;">詳細データを閲覧</a>
+290:             </div>
+291:         </div>
+292: 
+293:         <div class="news-summary-sidebar hud-panel">
+294:             <h4 style="margin-bottom: 20px; border-bottom: 1px solid var(--panel-border); padding-bottom: 10px;">最新インテル</h4>
+295:             ${newsItems.map(item => `
+296:                 <div class="news-item-sm" style="margin-bottom: 20px;">
+297:                     <span style="font-size: 10px; color: var(--primary-neon);">${item.date}</span>
+298:                     <h5 style="margin: 5px 0;">${item.title}</h5>
+299:                     <p style="font-size: 12px; color: var(--text-dim);">${item.summary.slice(0, 50)}...</p>
+300:                 </div>
+301:             `).join('')}
+302:             <a href="#news-feed" style="font-size: 12px; color: var(--primary-neon);">[ ニュースフィードにアクセス ]</a>
+303:         </div>
+304: 
+305:         <div class="author-summary hud-panel">
+306:             <h4 style="margin-bottom: 20px; border-bottom: 1px solid var(--panel-border); padding-bottom: 10px;">キュレーター情報</h4>
+307:             ${renderAuthorProfile()}
+308:         </div>
+309:     </div>
+310:   `;
+311: }
+312: 
+313: function renderAuthorProfile() {
+314:     return `
+315:         <div class="author-profile-card">
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

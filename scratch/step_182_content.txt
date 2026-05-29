@@ -1,0 +1,59 @@
+Created At: 2026-05-27T12:18:59Z
+Completed At: 2026-05-27T12:18:59Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1670
+Total Bytes: 75551
+Showing lines 1420 to 1470
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1420:   `;
+1421: }
+1422: 
+1423: function attachWorldMapEvents() {
+1424:     const stage = document.querySelector('.map-3d-stage');
+1425:     const container = document.getElementById('map-3d-container');
+1426:     const hotspotsSvg = document.getElementById('map-hotspots-svg');
+1427:     const markerEl = document.getElementById('globe-marker');
+1428:     const scanBeam = document.getElementById('scan-beam-el');
+1429:     const terminalContent = document.getElementById('terminal-content');
+1430:     
+1431:     if (!stage || !container || !hotspotsSvg) return;
+1432:     
+1433:     let isScanning = false;
+1434:     let selectedRegion = null;
+1435:     
+1436:     // Predefined coordinates for markers matching the flat map background (2816x1536 viewBox)
+1437:     const REGION_CENTERS = {
+1438:       '北アメリカ': { x: 700, y: 520 },
+1439:       '南アメリカ': { x: 700, y: 1060 },
+1440:       'ユーラシア': { x: 1830, y: 550 },
+1441:       'アフリカ': { x: 1400, y: 990 },
+1442:       'オセアニア': { x: 2250, y: 1140 },
+1443:       '日本': { x: 2390, y: 590 }
+1444:     };
+1445:     
+1446: 
+1447:     // Click scan interaction
+1448:     hotspotsSvg.addEventListener('click', (e) => {
+1449:         const hotspot = e.target.closest('.map-region-hotspot');
+1450:         if (hotspot && !isScanning) {
+1451:             const region = hotspot.getAttribute('data-region');
+1452:             const center = REGION_CENTERS[region];
+1453:             if (!center) return;
+1454:             
+1455:             isScanning = true;
+1456:             selectedRegion = region;
+1457:             
+1458:             // Show and move marker
+1459:             if (markerEl) {
+1460:                 markerEl.setAttribute('transform', `translate(${center.x}, ${center.y})`);
+1461:                 markerEl.style.display = 'block';
+1462:             }
+1463:             
+1464:             // Scan beam effect
+1465:             scanBeam.style.display = 'block';
+1466:             scanBeam.style.top = '0%';
+1467:             
+1468:             let start = null;
+1469:             const duration = 1200;
+1470:             
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

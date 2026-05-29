@@ -1,0 +1,15 @@
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"Remove obsolete 3D globe helper functions in app.js.\"",
+    "EndLine": "1560",
+    "Instruction": "\"Delete the unused 3D projection, outline, and dot calculation functions in app.js.\"",
+    "ReplacementContent": "\"// --- CYBER WORLD MAP INTERACTION HELPERS ---\"",
+    "StartLine": "1302",
+    "TargetContent": "\"let CACHED_MAP_DOTS = null;\\n\\nfunction generateHighResDots() {\\n    if (CACHED_MAP_DOTS) return CACHED_MAP_DOTS;\\n    \\n    const tempSvg = document.createElementNS(\\\"http://www.w3.org/2000/svg\\\", \\\"svg\\\");\\n    tempSvg.setAttribute(\\\"viewBox\\\", \\\"0 0 900 450\\\");\\n    tempSvg.style.position = \\\"absolute\\\";\\n    tempSvg.style.left = \\\"-9999px\\\";\\n    tempSvg.id = \\\"temp-map-detector\\\";\\n    \\n    const paths = {};\\n    for (const [region, d] of Object.entries(WORLD_MAP_PATHS)) {\\n        const path = document.createElementNS(\\\"http://www.w3.org/2000/svg\\\", \\\"path\\\");\\n        path.setAttribute(\\\"d\\\", d);\\n        tempSvg.appendChild(path);\\n        paths[region] = path;\\n    }\\n    document.body.appendChild(tempSvg);\\n    \\n    const dots = [];\\n    const pt = tempSvg.createSVGPoint();\\n    \\n    // Higher density: smaller step sizes\\n    const stepX = 3.2;\\n    const stepY = 4.2;\\n    \\n    for (let y = 10; y < 440; y += stepY) {\\n        for (let x = 10; x < 890; x += stepX) {\\n            pt.x = x;\\n            pt.y = y;\\n            let regionFound = null;\\n            \\n            for (const [region, path] of Object.entries(paths)) {\\n                if (path.isPointInFill(pt)) {\\n                    regionFound = region;\\n                    break;\\n                }\\n            }\\n            \\n            const lon = (x - 450) / 900 * 2 * Math.PI;\\n            const lat = (225 - y) / 225 * (Math.PI / 2);\\n            \\n            const t = x / 900;\\n            const r = Math.round(57 * (1 - t) + 0 * t);\\n            const g = Math.round(255 * (1 - t) + 242 * t);\\n            const b = Math.round(20 * (1 - t) + 255 * t);\\n            const color = `rgb(${r},${g},${b})`;\\n            \\n            if (regionFound) {\\n                dots.push({\\n                    lat, lon,\\n                    region: regionFound,\\n                    color: color,\\n                    isLand: true\\n                });\\n            } else {\\n                // Ocean dots on a clean grid spacing\\n                const\n<truncated 5314 bytes>",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Removing obsolete 3D code\"",
+    "toolSummary": "\"Replace file content\""
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"handleRouteChangeの末尾に、世界地図のイベントを登録するための条件分岐を追加しました。\"",
+    "EndLine": "162",
+    "Instruction": "\"Call attachWorldMapEvents when hash is 'world-map'.\"",
+    "ReplacementContent": "\"  // Re-attach page specific events\\n  if (hash === 'dictionary') attachDictionaryEvents();\\n  if (hash === 'world-map') attachWorldMapEvents();\\n}\"",
+    "StartLine": "158",
+    "TargetContent": "\"  // Re-attach page specific events\\n  if (hash === 'dictionary') attachDictionaryEvents();\\n}\"",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Modifying handleRouteChange end\"",
+    "toolSummary": "\"Modify route handler in app.js\""
+  }
+}

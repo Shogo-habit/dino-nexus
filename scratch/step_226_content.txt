@@ -1,0 +1,84 @@
+Created At: 2026-05-27T12:34:40Z
+Completed At: 2026-05-27T12:34:40Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1671
+Total Bytes: 75593
+Showing lines 1200 to 1550
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1200:                     ${topic.relatedSpecimens.map(specimenId => {
+1201:                         const d = DINOSAURS.find(item => item.id === specimenId);
+1202:                         if (!d) return '';
+1203:                         return `
+1204:                         <div class="related-card hud-panel" onclick="location.hash='#dictionary/${d.id}'">
+1205:                             <div class="related-img-wrap">
+1206:                                 <img src="${d.image}" alt="${d.name}" loading="lazy" decoding="async">
+1207:                             </div>
+1208:                             <h4 class="related-name">${d.name}</h4>
+1209:                             <div class="related-meta">${d.era} / ${d.region}</div>
+1210:                         </div>
+1211:                         `;
+1212:                     }).join('')}
+1213:                 </div>
+1214:             </section>
+1215:             ` : ''}
+1216:             
+1217:             <div style="margin-top: 40px; border-top: 1px solid var(--panel-border); padding-top: 20px;">
+1218:                 <a href="#topics" class="nav-link" aria-label="トピックス一覧に戻る">[ トピックス一覧に戻る ]</a>
+1219:             </div>
+1220:         </article>
+1221:     `;
+1222: }
+1223: 
+1224: // --- 3D TACTICAL WORLD MAP CONFIGURATION ---
+1225: const WORLD_MAP_PATHS = {
+1226:   '北アメリカ': 'M 60,80 L 120,60 L 180,40 L 260,30 L 320,60 L 330,90 L 310,120 L 270,125 L 260,150 L 220,160 L 250,190 L 220,220 L 195,225 L 185,250 L 180,230 L 140,220 L 120,195 L 90,195 L 80,150 L 105,130 L 95,95 Z',
+1227:   
+<truncated 17384 bytes>
+ogressInterval);
+1505:                 }
+1506:             }, 100);
+1507:             
+1508:             setTimeout(() => {
+1509:                 terminalContent.innerHTML = getScannedDinoListHtml(region);
+1510:                 isScanning = false;
+1511:             }, 1300);
+1512:         }
+1513:     });
+1514:     
+1515:     // Periodical update loops for side widgets
+1516:     const DEBUG_LOGS = [
+1517:       "[DEC_SYS: ONLINE]",
+1518:       "[GEOLOCATION: STABLE]",
+1519:       "[PALEOCURRENT SCAN: IN PROGRESS]",
+1520:       "[TARGET DECODED: T-REX IN SECTOR 4]",
+1521:       "[SYSTEM STATUS: ONLINE]",
+1522:       "[NEURAL FEED: SYNCHRONIZED]",
+1523:       "[ATMOSPHERE: O2 21% / CO2 0.04%]",
+1524:       "[SCANNER RES: 0.12mm]",
+1525:       "[MATRIX STATE: NORMAL]",
+1526:       "[GRAVITATIONAL INDEX: 1.0G]",
+1527:       "[CLIMATIC ESTIMATE: WARM/HUMID]",
+1528:       "[CHRONO OFFSET: -66.0M YEARS]"
+1529:     ];
+1530:     
+1531:     const logStream = document.getElementById('hud-log-stream');
+1532:     if (logStream) {
+1533:         const logInterval = setInterval(() => {
+1534:             if (!document.getElementById('hud-log-stream')) {
+1535:                 clearInterval(logInterval);
+1536:                 return;
+1537:             }
+1538:             const logLines = Array.from(logStream.children);
+1539:             if (logLines.length > 5) {
+1540:                 logStream.removeChild(logLines[0]);
+1541:             }
+1542:             const newDiv = document.createElement('div');
+1543:             newDiv.textContent = DEBUG_LOGS[Math.floor(Math.random() * DEBUG_LOGS.length)];
+1544:             logStream.appendChild(newDiv);
+1545:             logStream.scrollTop = logStream.scrollHeight;
+1546:         }, 2200);
+1547:     }
+1548:     
+1549:     const canvas = document.getElementById('radar-canvas');
+1550:     let radarAngle = 0;
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

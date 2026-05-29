@@ -1,0 +1,37 @@
+Created At: 2026-05-27T12:11:14Z
+Completed At: 2026-05-27T12:11:15Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1688
+Total Bytes: 76285
+Showing lines 1440 to 1468
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1440:       'ユーラシア': { x: 1830, y: 550 },
+1441:       'アフリカ': { x: 1400, y: 990 },
+1442:       'オセアニア': { x: 2250, y: 1140 },
+1443:       '日本': { x: 2390, y: 590 }
+1444:     };
+1445:     
+1446:     // Parallax HUD container tilt
+1447:     const containerRotX = -10;
+1448:     const containerRotY = 15;
+1449:     
+1450:     stage.addEventListener('mousemove', (e) => {
+1451:         const rect = stage.getBoundingClientRect();
+1452:         const px = (e.clientX - rect.left) / rect.width - 0.5;
+1453:         const py = (e.clientY - rect.top) / rect.height - 0.5;
+1454:         
+1455:         const targetRotX = containerRotX - py * 12;
+1456:         const targetRotY = containerRotY + px * 12;
+1457:         
+1458:         container.style.transform = `rotateX(${targetRotX.toFixed(1)}deg) rotateY(${targetRotY.toFixed(1)}deg)`;
+1459:     });
+1460:     
+1461:     stage.addEventListener('mouseleave', () => {
+1462:         container.style.transform = `rotateX(${containerRotX}deg) rotateY(${containerRotY}deg)`;
+1463:     });
+1464:     
+1465:     // Click scan interaction
+1466:     hotspotsSvg.addEventListener('click', (e) => {
+1467:         const hotspot = e.target.closest('.map-region-hotspot');
+1468:         if (hotspot && !isScanning) {
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

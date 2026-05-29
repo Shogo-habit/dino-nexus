@@ -1,0 +1,13 @@
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"Append Topics rendering functions and premium 3D spherical dome World Map code in app.js\"",
+    "EndLine": "1167",
+    "Instruction": "\"Replace handleToggleCollection and init() block to append Topics and World Map code at the end of app.js.\"",
+    "ReplacementContent": "\"window.handleToggleCollection = (id) => {\\n    const isSaved = APP_STATE.toggleCollection(id);\\n    const btn = document.querySelector('.save-btn');\\n    if (btn) {\\n        btn.classList.toggle('saved', isSaved);\\n        btn.innerHTML = isSaved ? '✓ 観測データ保存済み' : '+ 観測データに保存';\\n    }\\n};\\n\\n// --- DINO TOPICS FUNCTIONS ---\\nfunction renderTopics() {\\n    return `\\n        <section class=\\\"page-header\\\">\\n            <h2 class=\\\"page-title\\\">恐竜トピックス</h2>\\n            <p class=\\\"page-subtitle\\\">古生物学における最新の研究と歴史的推移</p>\\n        </section>\\n        \\n        <div class=\\\"topic-list\\\">\\n            ${TOPICS.map(topic => `\\n                <div class=\\\"topic-card hud-panel\\\" onclick=\\\"location.hash='#topics/${topic.id}'\\\">\\n                    <img src=\\\"${topic.image}\\\" class=\\\"topic-thumb\\\" alt=\\\"${topic.title}\\\">\\n                    <div class=\\\"topic-summary\\\">\\n                        <div class=\\\"topic-meta\\\">\\n                            [ ${topic.category} ] ${topic.date} | ${topic.securityLevel}\\n                        </div>\\n                        <h3 class=\\\"topic-title\\\">${topic.title}</h3>\\n                        <p class=\\\"topic-desc\\\">${topic.summary}</p>\\n                    </div>\\n                </div>\\n            `).join('')}\\n        </div>\\n    `;\\n}\\n\\nfunction renderTopicDetail(id) {\\n    const topic = TOPICS.find(item => item.id === id);\\n    if (!topic) return `<p>TOPIC NOT FOUND</p>`;\\n\\n    return `\\n        <article class=\\\"topic-article hud-panel\\\">\\n            <div class=\\\"topic-detail-header\\\">\\n                <div class=\\\"topic-meta\\\">\\n                    [ ${topic.category} ] ${topic.date} | ${topic.securityLevel}\\n                </div>\\n                <h1 class=\\\"topic-title\\\" style=\\\"font-size: 28px; color: var(--primary-neon);\\\">${topic.title}</h1>\\n            </div>\\n            \\n            <img src=\\\"${topic.image}\\\" class=\\\"topic-detail-img\\\" alt=\\\"${topic.title}\\\">\\n          \n<truncated 37812 bytes>",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Appending Topics and 3D Spherical map rendering functions to app.js\"",
+    "toolSummary": "\"Replace file content\""
+  }
+}

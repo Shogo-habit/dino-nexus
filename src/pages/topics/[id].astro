@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { TOPICS } from '../../data/topics';
+import { DINOSAURS } from '../../data/dinosaurs';
+
+export async function getStaticPaths() {
+  return TOPICS.map(topic => ({
+    params: { id: topic.id },
+    props: { topic }
+  }));
+}
+
+const { topic } = Astro.props;
+
+// Fetch related specimens data
+const relatedDinos = (topic.relatedSpecimens || []).map(specimenId => {
+    return DINOSAURS.find(d => d.id === specimenId);
+}).filter(Boolean);
+---
+
+<Layout title={`${topic.title} | Dino-Nexus`} activeTab="topics" description={topic.summary}>
+    <article class="topic-article hud-panel">
+        <div class="topic-detail-header" style="border-bottom: 1px solid var(--panel-border); padding-bottom: 15px; margin-bottom: 25px;">
+            <div class="topic-meta" style="font-size: 11px; color: var(--primary-neon); font-family: var(--font-mono); margin-bottom: 10px;">
+                [ {topic.category} ] {topic.date} | {topic.securityLevel}
+            </div>
+            <h1 class="topic-title" style="font-size: 28px; color: var(--primary-neon); margin: 0;">{topic.title}</h1>
+        </div>
+        
+        <img src={`/${topic.image}`} class="topic-detail-img" alt={topic.title} style="width: 100%; max-height: 400px; object-fit: cover; margin-bottom: 30px; border: 1px solid var(--panel-border);">
+        
+        <div class="topic-content">
+            <Fragment set:html={topic.content} />
+        </div>
+        
+        {relatedDinos.length > 0 && (
+            <section class="related-specimens" style="margin-top: 60px;">
+                <h3 class="related-title" style="border-bottom: 1px solid var(--panel-border); padding-bottom: 10px; margin-bottom: 20px;">関連するアーカイブデータ</h3>
+                <div class="related-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px;">
+                    {relatedDinos.map(d => (
+                        <a href={`/dictionary/${d.id}`} style="text-decoration: none; color: inherit;">
+                            <div class="related-card hud-panel" style="cursor: pointer; height: 100%;">
+                                <div class="related-img-wrap" style="height: 80px; overflow: hidden;">
+                                    <img src={`/${d.image}`} alt={d.name} loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <h4 class="related-name" style="font-size: 12px; margin: 8px 0 4px 0; color: var(--text-main);">{d.name}</h4>
+                                <div class="related-meta" style="font-size: 9px; color: var(--text-dim);">{d.era} / {d.region}</div>
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            </section>
+        )}
+        
+        <div style="margin-top: 40px; border-top: 1px solid var(--panel-border); padding-top: 20px;">
+            <a href="/topics" class="nav-link" aria-label="トピックス一覧に戻る" style="text-decoration: none;">[ トピックス一覧に戻る ]</a>
+        </div>
+    </article>
+</Layout>

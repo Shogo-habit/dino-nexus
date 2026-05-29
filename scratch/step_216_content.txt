@@ -1,0 +1,79 @@
+Created At: 2026-05-27T12:34:30Z
+Completed At: 2026-05-27T12:34:30Z
+File Path: `file:///Users/kosako/.gemini/antigravity/brain/baaeb70b-a5e5-4d0e-b78f-67d8eeb6789f/implementation_plan.md`
+Total Lines: 104
+Total Bytes: 5724
+Showing lines 1 to 104
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: # Split Eurasia into Europe, Russia, and Asia
+2: 
+3: This plan outlines the steps to divide the single "Eurasia" map region into three separate sectors: **Europe**, **Russia**, and **Asia**. This will allow users to explore and scan these regions independently on the interactive world map.
+4: 
+5: ## Proposed Changes
+6: 
+7: ### [app.js](file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js)
+8: 
+9: We will modify [app.js](file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js) to:
+10: 1. Update the `REGIONS` array to include "ロシア" (Russia) as a distinct region.
+11: 2. Split the single `ユーラシア` polygon coordinates in the SVG of `renderWorldMap()` into three non-overlapping polygons: `ヨーロッパ` (Europe), `ロシア` (Russia), and `アジア` (Asia).
+12: 3. Add corresponding centers in `REGION_CENTERS` for the marker ping.
+13: 4. Add specific regional threat descriptions in `REGION_METADATA`.
+14: 5. Update `REGION_MAP` and `matchesRegion` to correctly map dinosaur signatures from the database, ensuring "ロシア" and "アジア" signatures do not overlap.
+15: 
+16: #### Detailed Code Changes
+17: 
+18: ##### 1. Update `REGIONS` Filter List
+19: Add `ロシア` to the `REGIONS` array (around line 18) so it appears in the dictionary dropdown.
+20: ```javascript
+21: const REGIONS = [
+22:     { id: '北アメリカ', label: '北アメリカ' },
+23:     { id: '南アメリカ', label: '南アメリカ' },
+24:     { id: 'アジア', label: 'アジア' },
+25:     { id: 'ロシア', label: 'ロシア' },
+26:     { id: '
+<truncated 2613 bytes>
+,
+62: ```
+63: 
+64: ##### 5. Update Mapping and Matches Logic
+65: Update `REGION_MAP` and matching filter to avoid overlaps (around line 1244):
+66: ```javascript
+67: const REGION_MAP = {
+68:   '北アメリカ': ['北アメリカ'],
+69:   '南アメリカ': ['南アメリカ'],
+70:   'ヨーロッパ': ['ヨーロッパ'],
+71:   'ロシア': ['ロシア'],
+72:   'アジア': ['アジア'],
+73:   'アフリカ': ['アフリカ'],
+74:   'オセアニア': ['オセアニア'],
+75:   '日本': ['日本'],
+76:   '海洋': ['海洋']
+77: };
+78: 
+79: const matchesRegion = (dinoRegion, targetRegion) => {
+80:     if (targetRegion === '海洋') {
+81:         return dinoRegion.includes('海洋') || dinoRegion.includes('海');
+82:     }
+83:     if (targetRegion === 'アジア') {
+84:         // Exclude Russian specimens from general Asia scans to keep them distinct
+85:         return dinoRegion.includes('アジア') && !dinoRegion.includes('ロシア');
+86:     }
+87:     const mapped = REGION_MAP[targetRegion];
+88:     if (!mapped) return false;
+89:     return mapped.some(r => dinoRegion.includes(r));
+90: };
+91: ```
+92: 
+93: ## Verification Plan
+94: 
+95: ### Automated Verification
+96: - Run `node scratch/test_load.js` to ensure the script compiles and runs cleanly without throwing reference or syntax errors.
+97: 
+98: ### Manual Verification
+99: - Open the local website in the browser.
+100: - Go to the **World Map (世界地図)** page.
+101: - Hover over and click on **Europe (ヨーロッパ)**, **Russia (ロシア)**, and **Asia (アジア)** separately.
+102: - Verify that each clicks triggers the radar scanning animation at the correct coordinates, displays the correct threat details in the console, and loads the respective dinosaur signatures (e.g., Olorotitan for Russia, Baryonyx for Europe, Velociraptor for Asia).
+103: - Go to the **Dictionary (恐竜図鑑)** page and verify that "ロシア" is visible in the region filter dropdown.
+104: 
+The above content shows the entire, complete file contents of the requested file.

@@ -1,0 +1,355 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { DINOSAURS } from '../../data/dinosaurs';
+
+const REGION_CENTERS = {
+  '北アメリカ': { x: 700, y: 520 },
+  '南アメリカ': { x: 700, y: 1060 },
+  'ヨーロッパ': { x: 1300, y: 500 },
+  'ロシア': { x: 1950, y: 400 },
+  'アジア': { x: 1950, y: 700 },
+  'アフリカ': { x: 1400, y: 990 },
+  'オセアニア': { x: 2250, y: 1140 },
+  '日本': { x: 2390, y: 590 }
+};
+
+const REGION_FRAMES = {
+  '北アメリカ': { x: 170, y: 220, width: 920, height: 590 },
+  '南アメリカ': { x: 700, y: 740, width: 400, height: 570 },
+  'ヨーロッパ': { x: 1250, y: 210, width: 400, height: 390 },
+  'ロシア': { x: 1700, y: 90, width: 1080, height: 360 },
+  'アジア': { x: 1670, y: 430, width: 700, height: 400 },
+  'アフリカ': { x: 1200, y: 580, width: 590, height: 570 },
+  'オセアニア': { x: 2200, y: 890, width: 400, height: 300 },
+  '日本': { x: 2340, y: 460, width: 160, height: 190 }
+};
+
+const matchesRegion = (dinoRegion: string, targetRegion: string) => {
+    if (targetRegion === '海洋') {
+        return dinoRegion.includes('海洋') || dinoRegion.includes('海');
+    }
+    if (targetRegion === 'アジア') {
+        return dinoRegion.includes('アジア') && !dinoRegion.includes('ロシア');
+    }
+    const REGION_MAP: Record<string, string[]> = {
+      '北アメリカ': ['北アメリカ'],
+      '南アメリカ': ['南アメリカ'],
+      'ヨーロッパ': ['ヨーロッパ'],
+      'ロシア': ['ロシア'],
+      'アジア': ['アジア'],
+      'アフリカ': ['アフリカ'],
+      'オセアニア': ['オセアニア'],
+      '日本': ['日本'],
+      '海洋': ['海洋']
+    };
+    const mapped = REGION_MAP[targetRegion];
+    if (!mapped) return false;
+    return mapped.some(r => dinoRegion.includes(r));
+};
+
+const regionCounts = Object.keys(REGION_CENTERS).reduce((acc, region) => {
+    acc[region] = DINOSAURS.filter(d => matchesRegion(d.region, region)).length;
+    return acc;
+}, {} as Record<string, number>);
+
+const engLabels: Record<string, string> = {
+    '北アメリカ': 'NORTH AMERICA',
+    '南アメリカ': 'SOUTH AMERICA',
+    'ヨーロッパ': 'EUROPE',
+    'ロシア': 'RUSSIA',
+    'アジア': 'ASIA',
+    'アフリカ': 'AFRICA',
+    'オセアニア': 'OCEANIA',
+    '日本': 'JAPAN'
+};
+---
+
+<Layout title="ワールドマップ | Dino-Nexus" activeTab="world-map" description="立体地図インターフェースによる古生物地域分布探索シミュレーター。">
+    <section class="page-header">
+      <h2 class="page-title">ワールドマップ</h2>
+      <p class="page-subtitle">地図上の地域をクリックして登録標本データをスキャン</p>
+    </section>
+
+    <div class="world-map-layout">
+        <div class="map-3d-stage">
+            <!-- マップコンテナ -->
+            <div class="cyber-map-container" id="map-3d-container">
+                <svg viewBox="0 80 2816 1266" class="cyber-world-map" id="map-hotspots-svg">
+                    <image href="/images/cyber_world_map.png" x="0" y="0" width="2816" height="1536" />
+                    <!-- 地域ごとのホットスポット矩形 -->
+                    {Object.keys(REGION_FRAMES).map(region => {
+                        const frame = REGION_FRAMES[region as keyof typeof REGION_FRAMES];
+                        return <rect class="map-region-hotspot" data-region={region} fill="transparent" stroke="transparent" x={frame.x} y={frame.y} width={frame.width} height={frame.height} style="cursor: pointer;" />;
+                    })}
+                    
+                    <!-- エリア選択枠（四角） -->
+                    <g id="selected-region-frame" style="display: none; pointer-events: none;">
+                        <!-- 外枠ダッシュ線 -->
+                        <rect id="selector-rect" x="0" y="0" width="0" height="0" fill="rgba(0, 255, 102, 0.02)" stroke="var(--secondary-neon)" stroke-width="2.5" stroke-dasharray="10 8" rx="6" style="filter: drop-shadow(0 0 10px rgba(0, 255, 102, 0.25));" />
+                        <!-- 左上コーナー -->
+                        <g id="bracket-tl">
+                            <path d="M 0,20 L 0,0 L 20,0" fill="none" stroke="var(--secondary-neon)" stroke-width="4.5" />
+                        </g>
+                        <!-- 右上コーナー -->
+                        <g id="bracket-tr">
+                            <path d="M -20,0 L 0,0 L 0,20" fill="none" stroke="var(--secondary-neon)" stroke-width="4.5" />
+                        </g>
+                        <!-- 左下コーナー -->
+                        <g id="bracket-bl">
+                            <path d="M 0,-20 L 0,0 L 20,0" fill="none" stroke="var(--secondary-neon)" stroke-width="4.5" />
+                        </g>
+                        <!-- 右下コーナー -->
+                        <g id="bracket-br">
+                            <path d="M -20,0 L 0,0 L 0,-20" fill="none" stroke="var(--secondary-neon)" stroke-width="4.5" />
+                        </g>
+                    </g>
+
+                    <!-- 各セクターの生物数バッジ -->
+                    {Object.keys(REGION_CENTERS).map(region => {
+                        const center = REGION_CENTERS[region as keyof typeof REGION_CENTERS];
+                        const count = regionCounts[region];
+                        
+                        const label = engLabels[region] || region.toUpperCase();
+                        const badgeY = center.y - 70;
+                        const badgeX = region === '日本' ? center.x + 240 : center.x;
+                        
+                        return (
+                            <g class="map-badge-group" transform={`translate(${badgeX}, ${badgeY})`} style="pointer-events: none;">
+                                <rect x="-120" y="-35" width="240" height="70" rx="6" fill="rgba(4, 8, 12, 0.92)" stroke="var(--panel-border)" stroke-width="2" style="filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.15));" />
+                                <line x1="-115" y1="-25" x2="-115" y2="25" stroke="var(--primary-neon)" stroke-width="4" />
+                                <text x="-95" y="-8" text-anchor="start" fill="var(--text-dim)" font-size="16" font-family="var(--font-mono)" letter-spacing="1">{label}</text>
+                                <text x="-95" y="20" text-anchor="start" fill="var(--secondary-neon)" font-size="22" font-weight="bold" font-family="var(--font-mono)">{count} 種の登録</text>
+                            </g>
+                        );
+                    })}
+                </svg>
+            </div>
+            
+            <div class="map-scan-beam" id="scan-beam-el" style="display: none;"></div>
+        </div>
+
+        <div class="scan-terminal">
+            <div class="terminal-header-bar">
+                <span>スキャンデータ</span>
+                <div class="terminal-status-light"></div>
+            </div>
+            <div class="terminal-main-content" id="terminal-content">
+                <div class="scan-init-msg">
+                    <div class="scan-radar-icon">☵</div>
+                    <p style="font-size: 14px; letter-spacing: 1.5px;">地図上のエリアをクリックしてデータをスキャンしてください。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client-side scan scripts -->
+    <script>
+        import { DINOSAURS } from '../../data/dinosaurs';
+
+        const REGION_CENTERS: Record<string, {x: number, y: number}> = {
+          '北アメリカ': { x: 700, y: 520 },
+          '南アメリカ': { x: 700, y: 1060 },
+          'ヨーロッパ': { x: 1300, y: 500 },
+          'ロシア': { x: 1950, y: 400 },
+          'アジア': { x: 1950, y: 700 },
+          'アフリカ': { x: 1400, y: 990 },
+          'オセアニア': { x: 2250, y: 1140 },
+          '日本': { x: 2390, y: 590 }
+        };
+
+        const REGION_FRAMES: Record<string, {x: number, y: number, width: number, height: number}> = {
+          '北アメリカ': { x: 170, y: 220, width: 920, height: 590 },
+          '南アメリカ': { x: 700, y: 740, width: 400, height: 570 },
+          'ヨーロッパ': { x: 1250, y: 210, width: 400, height: 390 },
+          'ロシア': { x: 1700, y: 90, width: 1080, height: 360 },
+          'アジア': { x: 1670, y: 430, width: 700, height: 400 },
+          'アフリカ': { x: 1200, y: 580, width: 590, height: 570 },
+          'オセアニア': { x: 2200, y: 890, width: 400, height: 300 },
+          '日本': { x: 2340, y: 460, width: 160, height: 190 }
+        };
+
+        const REGION_METADATA: Record<string, { specimens: number, description: string }> = {
+          '北アメリカ': { specimens: 34, description: '白亜紀の大型獣脚類（ティラノサウルス等）や角竜類が多く発掘される巨大セクター。' },
+          '南アメリカ': { specimens: 22, description: 'ギガノトサウルスやアルゼンチノサウルスなど、超巨大種が跋扈した恐るべきセクター。' },
+          'ヨーロッパ': { specimens: 18, description: 'イグアノドンやバリオニクスなど、湿潤な森林や水辺に適応した多様な古生物が繁栄したセクター。' },
+          'ロシア': { specimens: 5, description: 'オロロティタンやイノストランケビアなど、極北の過酷な気候や変動する環境を生き抜いた屈強な古生物セクター。' },
+          'アジア': { specimens: 36, description: 'ヴェロキラプトルやテリジノサウルスなど、高い知性や特殊な捕食形態を遂げた種が多く発掘される広大セクター。' },
+          'アフリカ': { specimens: 25, description: 'カルノタウルスやスピノサウルスなど、極限環境に適応した捕食者が多く見られる赤道セクター。' },
+          'オセアニア': { specimens: 12, description: 'オーストラリアなどの孤立した大陸で独自進化を遂げた、ユニークな種が登録されているセクター。' },
+          '日本': { specimens: 15, description: 'カムイサウルス（むかわ竜）やフクイラプトルなど、日本列島特有の貴重な古生物が登録された重要セクター。' }
+        };
+
+        const matchesRegion = (dinoRegion: string, targetRegion: string) => {
+            if (targetRegion === '海洋') {
+                return dinoRegion.includes('海洋') || dinoRegion.includes('海');
+            }
+            if (targetRegion === 'アジア') {
+                return dinoRegion.includes('アジア') && !dinoRegion.includes('ロシア');
+            }
+            const REGION_MAP: Record<string, string[]> = {
+              '北アメリカ': ['北アメリカ'],
+              '南アメリカ': ['南アメリカ'],
+              'ヨーロッパ': ['ヨーロッパ'],
+              'ロシア': ['ロシア'],
+              'アジア': ['アジア'],
+              'アフリカ': ['アフリカ'],
+              'オセアニア': ['オセアニア'],
+              '日本': ['日本'],
+              '海洋': ['海洋']
+            };
+            const mapped = REGION_MAP[targetRegion];
+            if (!mapped) return false;
+            return mapped.some(r => dinoRegion.includes(r));
+        };
+
+        const COLLECTION_KEY = 'dino_nexus_saved_observations';
+
+        function initWorldMap() {
+            const hotspotsSvg = document.getElementById('map-hotspots-svg');
+            const scanBeam = document.getElementById('scan-beam-el');
+            const terminalContent = document.getElementById('terminal-content');
+            
+            if (!hotspotsSvg || !terminalContent) return;
+            
+            let isScanning = false;
+            
+            const getCollection = () => {
+                const saved = localStorage.getItem(COLLECTION_KEY);
+                return saved ? JSON.parse(saved) : [];
+            };
+
+            const renderDinoCards = (list: typeof DINOSAURS) => {
+                const collected = getCollection();
+                return list.map(d => {
+                    const isCollected = collected.includes(d.id);
+                    return `
+                        <div class="dino-card hud-panel ${isCollected ? 'is-collected' : ''}" onclick="location.href='/dictionary/${d.id}'" style="cursor:pointer;">
+                            <div class="card-img-wrap">
+                                <img src="/${d.image}" alt="${d.name}" loading="lazy" decoding="async" width="400" height="225">
+                                ${isCollected ? '<div class="collected-badge">OBSERVED</div>' : ''}
+                            </div>
+                            <div class="card-info">
+                                <h3 class="card-title">${d.name}</h3>
+                                <div class="card-tags" style="display: flex; gap: 5px; flex-wrap: wrap;">
+                                    <span class="card-tag group-tag">${d.group || '未分類'}</span>
+                                    <span class="card-tag">${d.era}</span>
+                                    <span class="card-tag">${d.diet}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            };
+
+            const getScannedDinoListHtml = (regionName: string) => {
+                const list = DINOSAURS.filter(d => matchesRegion(d.region, regionName));
+                const meta = REGION_METADATA[regionName] || { specimens: 0, description: '' };
+                
+                return `
+                    <div class="scan-meta-details" style="animation: scan-info-fade 0.5s ease forwards; margin-bottom: 25px; border: none; background: none; padding: 0;">
+                        <h3 style="color: var(--text-main); margin-bottom: 12px; font-size: 18px; font-weight: bold; letter-spacing: 0.5px;">選択エリア：${regionName}</h3>
+                        <p style="font-size: 14px; line-height: 1.6; color: var(--text-main); margin-bottom: 20px;">${meta.description}</p>
+                        
+                        <div style="font-size: 16px; font-weight: bold; color: var(--secondary-neon); font-family: 'Inter', sans-serif; margin-bottom: 10px;">
+                            登録数: ${list.length} 種類
+                        </div>
+                    </div>
+                    
+                    <div class="dino-grid">
+                        ${renderDinoCards(list)}
+                    </div>
+                `;
+            };
+            
+            hotspotsSvg.addEventListener('click', (e) => {
+                const target = e.target as HTMLElement;
+                const hotspot = target.closest('.map-region-hotspot');
+                if (hotspot && !isScanning) {
+                    const region = hotspot.getAttribute('data-region');
+                    if (!region) return;
+                    const center = REGION_CENTERS[region];
+                    if (!center) return;
+                    
+                    isScanning = true;
+                    
+                    // Show and move region selector brackets
+                    const frame = REGION_FRAMES[region];
+                    const frameGroup = document.getElementById('selected-region-frame');
+                    if (frame && frameGroup) {
+                        const selectorRect = document.getElementById('selector-rect');
+                        const bracketTl = document.getElementById('bracket-tl');
+                        const bracketTr = document.getElementById('bracket-tr');
+                        const bracketBl = document.getElementById('bracket-bl');
+                        const bracketBr = document.getElementById('bracket-br');
+                        
+                        if (selectorRect && bracketTl && bracketTr && bracketBl && bracketBr) {
+                            selectorRect.setAttribute('x', frame.x.toString());
+                            selectorRect.setAttribute('y', frame.y.toString());
+                            selectorRect.setAttribute('width', frame.width.toString());
+                            selectorRect.setAttribute('height', frame.height.toString());
+                            
+                            bracketTl.setAttribute('transform', `translate(${frame.x}, ${frame.y})`);
+                            bracketTr.setAttribute('transform', `translate(${frame.x + frame.width}, ${frame.y})`);
+                            bracketBl.setAttribute('transform', `translate(${frame.x}, ${frame.y + frame.height})`);
+                            bracketBr.setAttribute('transform', `translate(${frame.x + frame.width}, ${frame.y + frame.height})`);
+                            
+                            frameGroup.style.display = 'block';
+                        }
+                    }
+                    
+                    // Scan beam animation
+                    if (scanBeam) {
+                        scanBeam.style.display = 'block';
+                        scanBeam.style.top = '0%';
+                        
+                        let start: number | null = null;
+                        const duration = 1200;
+                        
+                        function animateScanBeam(timestamp: number) {
+                            if (!start) start = timestamp;
+                            const progress = timestamp - start;
+                            const percent = Math.min(100, (progress / duration) * 100);
+                            scanBeam!.style.top = `${percent}%`;
+                            
+                            if (progress < duration) {
+                                requestAnimationFrame(animateScanBeam);
+                            } else {
+                                scanBeam!.style.display = 'none';
+                            }
+                        }
+                        requestAnimationFrame(animateScanBeam);
+                    }
+                    
+                    // Display decoding layout in terminal
+                    terminalContent.innerHTML = `
+                        <div class="scan-init-msg">
+                            <div class="scan-radar-icon" style="color: var(--secondary-neon);">☲</div>
+                            <h3 style="color: var(--secondary-neon); font-family: var(--font-mono); letter-spacing: 2px;">DECODING SECTOR MATRIX...</h3>
+                            <p style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);">[SECTOR: ${region.toUpperCase()}]<br>ESTABLISHING TELEMETRY CONNECTION</p>
+                            <div style="width: 100%; height: 6px; background: rgba(0, 242, 255, 0.05); border: 1px solid var(--panel-border); overflow: hidden; width: 200px; margin-top: 10px; margin-left: auto; margin-right: auto;">
+                                <div id="decoder-progress-fill" style="width: 0%; height: 100%; background: var(--secondary-neon); box-shadow: 0 0 10px var(--secondary-neon);"></div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    const progressFill = document.getElementById('decoder-progress-fill');
+                    let progressVal = 0;
+                    const progressInterval = setInterval(() => {
+                        progressVal += 10;
+                        if (progressFill) progressFill.style.width = `${progressVal}%`;
+                        if (progressVal >= 100) {
+                            clearInterval(progressInterval);
+                        }
+                    }, 100);
+                    
+                    setTimeout(() => {
+                        terminalContent.innerHTML = getScannedDinoListHtml(region);
+                        isScanning = false;
+                    }, 1300);
+                }
+            });
+        }
+
+        document.addEventListener('astro:page-load', initWorldMap);
+    </script>
+</Layout>

@@ -1,0 +1,56 @@
+Created At: 2026-05-27T12:22:45Z
+Completed At: 2026-05-27T12:22:45Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1671
+Total Bytes: 75593
+Showing lines 1250 to 1327
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1250:   '日本': ['日本'],
+1251:   '海洋': ['海洋']
+1252: };
+1253: 
+1254: const REGION_METADATA = {
+1255:   '北アメリカ': { danger: 85, specimens: 34, description: '白亜紀の大型獣脚類（ティラノサウルス等）や角竜類が多く発掘される巨大セクター。', era: '白亜紀・ジュラ紀' },
+1256:   '南アメリカ': { danger: 90, specimens: 22, description: 'ギガノトサウルスやアルゼンチノサウルスなど、超巨大種が跋扈した恐るべきセクター。', era: '白亜紀' },
+1257:   'ユーラシア': { danger: 78, specimens: 59, description: '多様な羽毛恐竜や始祖鳥、イグアノドンなど、極めて多様な生態系が繁栄した超広大セクター。', era: '三畳紀・ジュラ紀・白亜紀' },
+1258:   'アフリカ': { danger: 88, specimens: 25, description: 'カルノタウルスやスピノサウルスなど、極限環境に適応した捕食者が多く見られる赤道セクター。', era: '白亜紀' },
+1259:   'オセアニア': { danger: 50, specimens: 12, description: 'オーストラリアなどの孤立した大陸で独自進化を遂げた、ユニークな種が登録されているセクター。', era: '白亜紀' },
+1260:   '日本': { danger: 55, specimens: 15, description: 'カムイサウルス（むかわ竜）やフクイラプトルなど、日本列島特有 of 貴重な古生物が登録された重要セクター。', era: '白亜紀' },
+1261:   '海洋': { danger: 95, specimens: 28, description: 'モササウルスやプレシオサウルスなど、太古の
+<truncated 1705 bytes>
+:                 <span class="scan-meta-label">登録標本数:</span>
+1294:                 <span class="scan-meta-value">${list.length} SPECIES</span>
+1295:             </div>
+1296:             
+1297:             <div class="danger-level-container">
+1298:                 <div style="display: flex; justify-content: space-between; font-size: 10px;">
+1299:                     <span>BIOTIC THREAT LEVEL:</span>
+1300:                     <span style="color: ${dangerColor}; font-weight: bold;">${meta.danger}% [ALERT]</span>
+1301:                 </div>
+1302:                 <div class="danger-level-bar-bg">
+1303:                     <div class="danger-level-bar-fill" style="width: ${meta.danger}%; background-color: ${dangerColor};"></div>
+1304:                 </div>
+1305:             </div>
+1306:         </div>
+1307:         
+1308:         <div class="scanned-list-header">// DETECTED SPECIMEN SIGNATURES (${list.length})</div>
+1309:         <div class="scanned-dino-grid">
+1310:             ${list.map(d => `
+1311:                 <div class="scanned-dino-card" onclick="location.hash='#dictionary/${d.id}'" style="cursor: pointer;">
+1312:                     <div class="scanned-card-thumb">
+1313:                         <img src="${d.image}" alt="${d.name}" loading="lazy">
+1314:                     </div>
+1315:                     <div class="scanned-card-info">
+1316:                         <div class="scanned-card-name">${d.name}</div>
+1317:                         <div class="scanned-card-meta">
+1318:                             <span class="scanned-card-group">${d.group}</span>
+1319:                             <span class="scanned-card-era">${d.era}</span>
+1320:                         </div>
+1321:                     </div>
+1322:                 </div>
+1323:             `).join('')}
+1324:         </div>
+1325:     `;
+1326: }
+1327: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

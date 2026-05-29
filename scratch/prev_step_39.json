@@ -1,0 +1,15 @@
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"handleRouteChange内で世界地図ページのタイトルとメタ情報を設定できるようにしました。\"",
+    "EndLine": "141",
+    "Instruction": "\"Add 'world-map' to the titles and descriptions config maps.\"",
+    "ReplacementContent": "\"      // Set titles for main pages\\n      const titles = {\\n        'home': 'コマンドセンター | Dino-Nexus',\\n        'dictionary': '生物学的アーカイブ | Dino-Nexus',\\n        'topics': '恐竜トピックス | Dino-Nexus',\\n        'glossary': '用語集 | Dino-Nexus',\\n        'my-collection': 'マイ・アーカイブ | Dino-Nexus',\\n        'world-map': 'グローバル・パレオ・マッピング | Dino-Nexus'\\n      };\\n      const descs = {\\n        'home': 'Dino-Nexusのメインコンソール。最新の発見と本日のピックアップ標本。',\\n        'dictionary': '150種以上の恐竜データを網羅したデジタル・アーカイブ。',\\n        'topics': '恐竜の生態推測や歴史的変化などの詳細なトピック記事。',\\n        'glossary': '恐竜の分類学や専門用語を解説する用語集。',\\n        'my-collection': '保存した恐竜データのアーカイブ。',\\n        'world-map': '立体地図インターフェースによる古生物地域分布探索シミュレーター。'\\n      };\\n      meta = { title: titles[routeKey], desc: descs[routeKey] };\"",
+    "StartLine": "120",
+    "TargetContent": "\"      // Set titles for main pages\\n      const titles = {\\n        'home': 'コマンドセンター | Dino-Nexus',\\n        'dictionary': '生物学的アーカイブ | Dino-Nexus',\\n        'topics': '恐竜トピックス | Dino-Nexus',\\n        'glossary': '用語集 | Dino-Nexus',\\n        'my-collection': 'マイ・アーカイブ | Dino-Nexus'\\n      };\\n      const descs = {\\n        'home': 'Dino-Nexusのメインコンソール。最新の発見と本日のピックアップ標本。',\\n        'dictionary': '150種以上の恐竜データを網羅したデジタル・アーカイブ。',\\n        'topics': '恐竜の生態推測や歴史的変化などの詳細なトピック記事。',\\n        'glossary': '恐竜の分類学や専門用語を解説する用語集。',\\n        'my-collection': '保存した恐竜データのアーカイブ。'\\n      };\\n      meta = { title: titles[routeKey], desc: descs[routeKey] };\"",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Modifying app.js metadata mapping\"",
+    "toolSummary": "\"Modify route titles and descriptions\""
+  }
+}

@@ -1,0 +1,91 @@
+Created At: 2026-05-27T12:04:10Z
+Completed At: 2026-05-27T12:04:10Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1717
+Total Bytes: 77702
+Showing lines 1 to 800
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: 
+2: // --- PHYSICAL CONSTANTS (HUD GOLDEN RULES) ---
+3: const HUD_CONFIG = {
+4:     PANEL_HEIGHT: 400,
+5:     BASELINE_PX: 100,
+6:     get SAFE_ZONE_H() { return this.PANEL_HEIGHT - this.BASELINE_PX; }, // 300px
+7:     SAFE_ZONE_W: 600
+8: };
+9: 
+10: // --- DATA CONSTANTS ---
+11: const ERAS = [
+12:     { id: '古生代', label: '古生代', period: '5億4100万 - 2億5100万年前' },
+13:     { id: '三畳紀', label: '三畳紀', period: '2億5100万 - 2億0100万年前' },
+14:     { id: 'ジュラ紀', label: 'ジュラ紀', period: '2億0100万 - 1億4500万年前' },
+15:     { id: '白亜紀', label: '白亜紀', period: '1億4500万 - 6600万年前' }
+16: ];
+17: 
+18: const REGIONS = [
+19:     { id: '北アメリカ', label: '北アメリカ' },
+20:     { id: '南アメリカ', label: '南アメリカ' },
+21:     { id: 'アジア', label: 'アジア' },
+22:     { id: 'アフリカ', label: 'アフリカ' },
+23:     { id: 'ヨーロッパ', label: 'ヨーロッパ' },
+24:     { id: '日本', label: '日本' },
+25:     { id: '海洋', label: '海洋' }
+26: ];
+27: 
+28: const GROUPS = [
+29:     { id: '獣脚類', label: '獣脚類' },
+30:     { id: '竜脚類', label: '竜脚類' },
+31:     { id: '鳥脚類', label: '鳥脚類' },
+32:     { id: '剣竜類', label: '剣竜類' },
+33:     { id: '堅頭竜類', label: '堅頭竜類' },
+34:     { id: 'よろい竜類', label: 'よろい竜類' },
+35:     { id: '角竜類', label: '角竜類' },
+36:     { id: '翼竜', label: '翼竜' },
+37:     { id: '首長竜', label: '首長竜' },
+38:     { id: '魚竜', label: '魚竜' },
+39:   
+<truncated 34650 bytes>
+lated.map(d => `
+759:                     <div class="related-card hud-panel" onclick="location.hash='#dictionary/${d.id}'">
+760:                         <div class="related-img-wrap" style="height: 220px;">
+761:                             <img src="${d.image}" alt="${d.name}" loading="lazy" decoding="async" width="150" height="150">
+762:                         </div>
+763:                         <h4 class="related-name">${d.name}</h4>
+764:                         <div class="related-meta">${d.era} / ${d.region}</div>
+765:                     </div>
+766:                 `).join('')}
+767:             </div>
+768:         </section>
+769:     `;
+770: }
+771: 
+772: function renderGlossary() {
+773:     return `
+774:         <section class="page-header">
+775:             <h1 class="page-title">用語集</h1>
+776:             <p class="page-subtitle">古生物学データベース ＆ 用語定義</p>
+777:         </section>
+778: 
+779:         <div class="glossary-list">
+780:             ${GLOSSARY.map(item => `
+781:                 <article class="glossary-item hud-panel" id="term-${item.id}" style="margin-bottom: 20px;">
+782:                     <h3 style="color: var(--primary-neon); margin-bottom: 10px;">
+783:                         <dfn>${item.term}</dfn>
+784:                     </h3>
+785:                     <p style="font-size: 14px; line-height: 1.6; color: var(--text-main);">
+786:                         ${item.def}
+787:                     </p>
+788:                 </article>
+789:             `).join('')}
+790:         </div>
+791: 
+792:         <div style="margin-top: 40px; text-align: right;">
+793:             ${renderFeedbackUI('glossary', 'main')}
+794:         </div>
+795:     `;
+796: }
+797: 
+798: function renderFeedbackUI(context, id) {
+799:     return `
+800:         <div class="feedback-container" id="feedback-${context}">
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -1,0 +1,15 @@
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"Call attachWorldMapEvents in handleRouteChange for the world-map route\"",
+    "EndLine": "160",
+    "Instruction": "\"Call attachWorldMapEvents when the hash is 'world-map'.\"",
+    "ReplacementContent": "\"  // Re-attach page specific events\\n  if (hash === 'dictionary') attachDictionaryEvents();\\n  if (hash === 'vs-sim') attachVsSimEvents();\\n  if (hash === 'world-map') attachWorldMapEvents();\\n}\"",
+    "StartLine": "155",
+    "TargetContent": "\"  // Re-attach page specific events\\n  if (hash === 'dictionary') attachDictionaryEvents();\\n  if (hash === 'vs-sim') attachVsSimEvents();\\n}\"",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Modifying handleRouteChange to call attachWorldMapEvents\"",
+    "toolSummary": "\"Modify routing for world map events\""
+  }
+}

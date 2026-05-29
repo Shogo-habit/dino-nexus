@@ -1,0 +1,99 @@
+Created At: 2026-05-27T12:34:36Z
+Completed At: 2026-05-27T12:34:36Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1671
+Total Bytes: 75593
+Showing lines 1 to 200
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: 
+2: // --- PHYSICAL CONSTANTS (HUD GOLDEN RULES) ---
+3: const HUD_CONFIG = {
+4:     PANEL_HEIGHT: 400,
+5:     BASELINE_PX: 100,
+6:     get SAFE_ZONE_H() { return this.PANEL_HEIGHT - this.BASELINE_PX; }, // 300px
+7:     SAFE_ZONE_W: 600
+8: };
+9: 
+10: // --- DATA CONSTANTS ---
+11: const ERAS = [
+12:     { id: '古生代', label: '古生代', period: '5億4100万 - 2億5100万年前' },
+13:     { id: '三畳紀', label: '三畳紀', period: '2億5100万 - 2億0100万年前' },
+14:     { id: 'ジュラ紀', label: 'ジュラ紀', period: '2億0100万 - 1億4500万年前' },
+15:     { id: '白亜紀', label: '白亜紀', period: '1億4500万 - 6600万年前' }
+16: ];
+17: 
+18: const REGIONS = [
+19:     { id: '北アメリカ', label: '北アメリカ' },
+20:     { id: '南アメリカ', label: '南アメリカ' },
+21:     { id: 'アジア', label: 'アジア' },
+22:     { id: 'アフリカ', label: 'アフリカ' },
+23:     { id: 'ヨーロッパ', label: 'ヨーロッパ' },
+24:     { id: '日本', label: '日本' },
+25:     { id: '海洋', label: '海洋' }
+26: ];
+27: 
+28: const GROUPS = [
+29:     { id: '獣脚類', label: '獣脚類' },
+30:     { id: '竜脚類', label: '竜脚類' },
+31:     { id: '鳥脚類', label: '鳥脚類' },
+32:     { id: '剣竜類', label: '剣竜類' },
+33:     { id: '堅頭竜類', label: '堅頭竜類' },
+34:     { id: 'よろい竜類', label: 'よろい竜類' },
+35:     { id: '角竜類', label: '角竜類' },
+36:     { id: '翼竜', label: '翼竜' },
+37:     { id: '首長竜', label: '首長竜' },
+38:     { id: '魚竜', label: '魚竜' },
+39:   
+<truncated 4518 bytes>
+ta-link') === hash.split('/')[0]);
+151:   });
+152: 
+153:   // Scroll to top
+154:   appContainer.scrollTop = 0;
+155:   
+156:   // Re-attach page specific events
+157:   if (hash === 'dictionary') attachDictionaryEvents();
+158:   if (hash === 'vs-sim') attachVsSimEvents();
+159:   if (hash === 'world-map') attachWorldMapEvents();
+160: }
+161: 
+162: function updateMetadata(title, desc, schema) {
+163:     if (title) document.title = title;
+164:     if (desc) {
+165:         let metaDesc = document.querySelector('meta[name="description"]');
+166:         if (metaDesc) metaDesc.setAttribute('content', desc);
+167:     }
+168:     const schemaEl = document.getElementById('dynamic-schema');
+169:     if (schemaEl) {
+170:         schemaEl.textContent = schema ? JSON.stringify(schema) : '';
+171:     }
+172: }
+173: 
+174: function generateDinoSchema(d) {
+175:     const faqs = generateDynamicFAQs(d);
+176:     
+177:     return {
+178:         "@context": "https://schema.org",
+179:         "@graph": [
+180:             {
+181:                 "@type": "Article",
+182:                 "headline": d.name,
+183:                 "description": d.description,
+184:                 "image": d.image,
+185:                 "author": {
+186:                     "@type": "Person",
+187:                     "name": AUTHOR_DATA.name,
+188:                     "jobTitle": AUTHOR_DATA.role,
+189:                     "description": AUTHOR_DATA.bio,
+190:                     "url": "https://dino-nexus.example.com/"
+191:                 }
+192:             },
+193:             {
+194:                 "@type": "FAQPage",
+195:                 "mainEntity": faqs.map(f => ({
+196:                     "@type": "Question",
+197:                     "name": f.q,
+198:                     "acceptedAnswer": {
+199:                         "@type": "Answer",
+200:                         "text": f.a
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -1,0 +1,92 @@
+Created At: 2026-05-27T12:04:12Z
+Completed At: 2026-05-27T12:04:12Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1717
+Total Bytes: 77702
+Showing lines 1500 to 1717
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1500:             if (!center) return;
+1501:             
+1502:             isScanning = true;
+1503:             selectedRegion = region;
+1504:             
+1505:             // Show and move marker
+1506:             if (markerEl) {
+1507:                 markerEl.setAttribute('transform', `translate(${center.x}, ${center.y})`);
+1508:                 markerEl.style.display = 'block';
+1509:             }
+1510:             
+1511:             // Scan beam effect
+1512:             scanBeam.style.display = 'block';
+1513:             scanBeam.style.top = '0%';
+1514:             
+1515:             let start = null;
+1516:             const duration = 1200;
+1517:             
+1518:             function animateScanBeam(timestamp) {
+1519:                 if (!start) start = timestamp;
+1520:                 const progress = timestamp - start;
+1521:                 const percent = Math.min(100, (progress / duration) * 100);
+1522:                 scanBeam.style.top = `${percent}%`;
+1523:                 
+1524:                 if (progress < duration) {
+1525:                     requestAnimationFrame(animateScanBeam);
+1526:                 } else {
+1527:                     scanBeam.style.display = 'none';
+1528:                 }
+1529:             }
+1530:             requestAnimationFrame(animateScanBeam);
+1531:             
+1532:             // Terminal scanning indicator
+1533:             terminalContent.innerHTML = `
+1534:                 <div class="scan-init-msg">
+1535:                     <div class="scan-radar-icon" style="color: var(--secondary-neon);">☲</div>
+1536:                  
+<truncated 6165 bytes>
+  drawRadar();
+1673:     }
+1674:     
+1675:     const threatPath = document.getElementById('threat-chart-path');
+1676:     const dataPoints = Array.from({ length: 15 }, () => 25);
+1677:     
+1678:     const chartInterval = setInterval(() => {
+1679:         if (!document.getElementById('threat-chart-path')) {
+1680:             clearInterval(chartInterval);
+1681:             if (radarAnimationId) cancelAnimationFrame(radarAnimationId);
+1682:             return;
+1683:         }
+1684:         
+1685:         dataPoints.shift();
+1686:         const baseDanger = selectedRegion ? REGION_METADATA[selectedRegion].danger : 25;
+1687:         const baseHeight = 45 - (baseDanger / 100) * 32;
+1688:         const newY = Math.max(5, Math.min(45, baseHeight + Math.random() * 12 - 6));
+1689:         dataPoints.push(newY);
+1690:         
+1691:         let pathStr = "M ";
+1692:         dataPoints.forEach((val, idx) => {
+1693:             pathStr += `${idx * 11.4} ${val} `;
+1694:         });
+1695:         threatPath.setAttribute('d', pathStr);
+1696:     }, 120);
+1697:     
+1698:     const eqBars = document.getElementById('hud-eq-bars');
+1699:     if (eqBars) {
+1700:         const eqInterval = setInterval(() => {
+1701:             if (!document.getElementById('hud-eq-bars')) {
+1702:                 clearInterval(eqInterval);
+1703:                 return;
+1704:             }
+1705:             
+1706:             const fills = eqBars.querySelectorAll('.diag-bar-fill');
+1707:             fills.forEach((fill, index) => {
+1708:                 const baseFactor = index % 3 === 0 ? 0.8 : (index % 2 === 0 ? 0.6 : 0.4);
+1709:                 const val = Math.random() * 60 + (baseFactor * 35);
+1710:                 fill.style.height = `${Math.min(95, Math.max(8, val))}%`;
+1711:             });
+1712:         }, 150);
+1713:     }
+1714: }
+1715: 
+1716: init();
+1717: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

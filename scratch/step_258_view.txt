@@ -1,0 +1,69 @@
+Created At: 2026-05-25T12:05:37Z
+Completed At: 2026-05-25T12:05:38Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1869
+Total Bytes: 84788
+Showing lines 1180 to 1260
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1180: // --- DINO TOPICS FUNCTIONS ---
+1181: function renderTopics() {
+1182:     return `
+1183:         <section class="page-header">
+1184:             <h2 class="page-title">恐竜トピックス</h2>
+1185:             <p class="page-subtitle">古生物学における最新の研究と歴史的推移</p>
+1186:         </section>
+1187:         
+1188:         <div class="topic-list">
+1189:             ${TOPICS.map(topic => `
+1190:                 <div class="topic-card hud-panel" onclick="location.hash='#topics/${topic.id}'">
+1191:                     <img src="${topic.image}" class="topic-thumb" alt="${topic.title}">
+1192:                     <div class="topic-summary">
+1193:                         <div class="topic-meta">
+1194:                             [ ${topic.category} ] ${topic.date} | ${topic.securityLevel}
+1195:                         </div>
+1196:                         <h3 class="topic-title">${topic.title}</h3>
+1197:                         <p class="topic-desc">${topic.summary}</p>
+1198:                     </div>
+1199:                 </div>
+1200:             `).join('')}
+1201:         </div>
+1202:     `;
+1203: }
+1204: 
+1205: function renderTopicDetail(id) {
+1206:     const topic = TOPICS.find(item => item.id === id);
+1207:     if (!topic) return `<p>TOPIC NOT FOUND</p>`;
+1208: 
+1209:     return `
+1210:         <article class="topic-article hud-panel">
+1211:             <div class="topic-detail-header">
+1212:                 <div class="topic-meta">
+1213:                     [ ${topic.category} ] ${topic.date} | ${topic.securityLevel}
+1214:                 </di
+<truncated 1301 bytes>
+                <h4 class="related-name">${d.name}</h4>
+1237:                             <div class="related-meta">${d.era} / ${d.region}</div>
+1238:                         </div>
+1239:                         `;
+1240:                     }).join('')}
+1241:                 </div>
+1242:             </section>
+1243:             ` : ''}
+1244:             
+1245:             <div style="margin-top: 40px; border-top: 1px solid var(--panel-border); padding-top: 20px;">
+1246:                 <a href="#topics" class="nav-link" aria-label="トピックス一覧に戻る">[ トピックス一覧に戻る ]</a>
+1247:             </div>
+1248:         </article>
+1249:     `;
+1250: }
+1251: 
+1252: // --- 3D TACTICAL WORLD MAP SPECIFICATION ---
+1253: const WORLD_MAP_PATHS = {
+1254:   '北アメリカ': 'M 60,80 L 120,60 L 180,40 L 260,30 L 320,60 L 330,90 L 310,120 L 270,125 L 260,150 L 220,160 L 250,190 L 220,220 L 195,225 L 185,250 L 180,230 L 140,220 L 120,195 L 90,195 L 80,150 L 105,130 L 95,95 Z',
+1255:   '南アメリカ': 'M 225,235 L 255,230 L 285,240 L 315,250 L 325,275 L 310,330 L 295,370 L 275,420 L 265,445 L 260,430 L 250,390 L 230,330 L 220,270 Z',
+1256:   'ユーラシア': 'M 410,110 L 450,80 L 530,60 L 610,55 L 690,55 L 770,60 L 850,70 L 890,85 L 900,105 L 890,140 L 900,175 L 860,210 L 840,240 L 810,250 L 790,270 L 740,270 L 690,295 L 630,270 L 600,250 L 585,210 L 550,205 L 510,210 L 470,210 L 450,190 L 450,150 L 430,120 Z',
+1257:   'アフリカ': 'M 450,205 L 500,205 L 530,215 L 575,200 L 595,220 L 605,260 L 645,300 L 650,320 L 610,370 L 580,400 L 570,400 L 540,350 L 510,325 L 485,300 L 460,275 L 445,225 Z',
+1258:   'オセアニア': 'M 750,300 L 790,290 L 840,305 L 855,320 L 845,360 L 810,375 L 760,360 Z',
+1259:   '日本': 'M 835,130 L 845,125 L 855,135 L 865,145 L 870,160 L 865,165 L 855,165 L 845,155 L 835,145 Z'
+1260: };
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -1,0 +1,87 @@
+Created At: 2026-05-27T12:10:25Z
+Completed At: 2026-05-27T12:10:25Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1688
+Total Bytes: 76285
+Showing lines 1328 to 1500
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1328: function renderWorldMap() {
+1329:   return `
+1330:     <section class="page-header hud-header-frame">
+1331:       <div class="hud-header-title">TACTICAL SITUATION OVERVIEW</div>
+1332:       <div class="hud-header-sub">// ACTIVE SYSTEMS: ONLINE // GLOBAL OPERATIONS TACTICAL VIEW</div>
+1333:     </section>
+1334: 
+1335:     <div class="world-map-layout">
+1336:         <div class="map-3d-stage">
+1337:             <!-- 左上: SECTOR STATUS -->
+1338:             <div class="hud-widget hud-sector-status">
+1339:                 <div class="hud-widget-header">SECTOR READOUTS</div>
+1340:                 <div class="hud-widget-body" id="hud-log-stream">
+1341:                     <div>[DEC_SYS: ONLINE]</div>
+1342:                     <div>[GEOLOCATION: STABLE]</div>
+1343:                     <div>[PALEOCURRENT SCAN: IN PROGRESS]</div>
+1344:                     <div>[SYSTEM STATUS: ONLINE]</div>
+1345:                 </div>
+1346:             </div>
+1347: 
+1348:             <!-- 右上: COMPASS -->
+1349:             <div class="hud-widget hud-compass">
+1350:                 <div class="compass-outer"></div>
+1351:                 <div class="compass-inner">
+1352:                     <div class="compass-pointer">N</div>
+1353:                 </div>
+1354:             </div>
+1355: 
+1356:             <!-- 左下: RADAR -->
+1357:             <div class="hud-widget hud-radar">
+1358:                 <div class="radar-title">TARGET TRACKING</div>
+1359:                 <canvas id="radar-canvas" width="120" height="120"></canvas>
+1360:             </div>
+1361: 
+1362:             <!-- 右下: THR
+<truncated 6275 bytes>
+argetRotX.toFixed(1)}deg) rotateY(${targetRotY.toFixed(1)}deg)`;
+1459:     });
+1460:     
+1461:     stage.addEventListener('mouseleave', () => {
+1462:         container.style.transform = `rotateX(${containerRotX}deg) rotateY(${containerRotY}deg)`;
+1463:     });
+1464:     
+1465:     // Click scan interaction
+1466:     hotspotsSvg.addEventListener('click', (e) => {
+1467:         const hotspot = e.target.closest('.map-region-hotspot');
+1468:         if (hotspot && !isScanning) {
+1469:             const region = hotspot.getAttribute('data-region');
+1470:             const center = REGION_CENTERS[region];
+1471:             if (!center) return;
+1472:             
+1473:             isScanning = true;
+1474:             selectedRegion = region;
+1475:             
+1476:             // Show and move marker
+1477:             if (markerEl) {
+1478:                 markerEl.setAttribute('transform', `translate(${center.x}, ${center.y})`);
+1479:                 markerEl.style.display = 'block';
+1480:             }
+1481:             
+1482:             // Scan beam effect
+1483:             scanBeam.style.display = 'block';
+1484:             scanBeam.style.top = '0%';
+1485:             
+1486:             let start = null;
+1487:             const duration = 1200;
+1488:             
+1489:             function animateScanBeam(timestamp) {
+1490:                 if (!start) start = timestamp;
+1491:                 const progress = timestamp - start;
+1492:                 const percent = Math.min(100, (progress / duration) * 100);
+1493:                 scanBeam.style.top = `${percent}%`;
+1494:                 
+1495:                 if (progress < duration) {
+1496:                     requestAnimationFrame(animateScanBeam);
+1497:                 } else {
+1498:                     scanBeam.style.display = 'none';
+1499:                 }
+1500:             }
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

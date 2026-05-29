@@ -1,0 +1,94 @@
+Created At: 2026-05-27T12:34:41Z
+Completed At: 2026-05-27T12:34:42Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1671
+Total Bytes: 75593
+Showing lines 1551 to 1671
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1551:     
+1552:     const targetSpots = [
+1553:       { x: 30, y: 45, alpha: 0, lastAngle: 0 },
+1554:       { x: 80, y: 35, alpha: 0, lastAngle: 0 },
+1555:       { x: 55, y: 80, alpha: 0, lastAngle: 0 }
+1556:     ];
+1557:     
+1558:     let radarAnimationId = null;
+1559:     
+1560:     function drawRadar() {
+1561:         if (!canvas) return;
+1562:         const ctx = canvas.getContext('2d');
+1563:         if (!ctx) return;
+1564:         
+1565:         ctx.clearRect(0, 0, 120, 120);
+1566:         const cx = 60, cy = 60, r = 52;
+1567:         
+1568:         ctx.strokeStyle = 'rgba(0, 242, 255, 0.15)';
+1569:         ctx.lineWidth = 0.5;
+1570:         
+1571:         ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+1572:         ctx.beginPath(); ctx.arc(cx, cy, r * 0.65, 0, Math.PI * 2); ctx.stroke();
+1573:         ctx.beginPath(); ctx.arc(cx, cy, r * 0.3, 0, Math.PI * 2); ctx.stroke();
+1574:         
+1575:         ctx.beginPath(); ctx.moveTo(cx - r, cy); ctx.lineTo(cx + r, cy); ctx.stroke();
+1576:         ctx.beginPath(); ctx.moveTo(cx, cy - r); ctx.lineTo(cx, cy + r); ctx.stroke();
+1577:         
+1578:         radarAngle = (radarAngle + 0.02) % (Math.PI * 2);
+1579:         
+1580:         const targetX = cx + r * Math.cos(radarAngle);
+1581:         const targetY = cy + r * Math.sin(radarAngle);
+1582:         
+1583:         ctx.fillStyle = 'rgba(0, 242, 255, 0.08)';
+1584:         ctx.beginPath();
+1585:         ctx.moveTo(cx, cy);
+1586:         ctx.arc(cx, cy, r, radarAngle - 0.6, radarAngle);
+1587:         ctx.lineTo(cx, cy);
+1588:         ctx.fill();
+1589:      
+<truncated 1504 bytes>
+  drawRadar();
+1627:     }
+1628:     
+1629:     const threatPath = document.getElementById('threat-chart-path');
+1630:     const dataPoints = Array.from({ length: 15 }, () => 25);
+1631:     
+1632:     const chartInterval = setInterval(() => {
+1633:         if (!document.getElementById('threat-chart-path')) {
+1634:             clearInterval(chartInterval);
+1635:             if (radarAnimationId) cancelAnimationFrame(radarAnimationId);
+1636:             return;
+1637:         }
+1638:         
+1639:         dataPoints.shift();
+1640:         const baseDanger = selectedRegion ? REGION_METADATA[selectedRegion].danger : 25;
+1641:         const baseHeight = 45 - (baseDanger / 100) * 32;
+1642:         const newY = Math.max(5, Math.min(45, baseHeight + Math.random() * 12 - 6));
+1643:         dataPoints.push(newY);
+1644:         
+1645:         let pathStr = "M ";
+1646:         dataPoints.forEach((val, idx) => {
+1647:             pathStr += `${idx * 11.4} ${val} `;
+1648:         });
+1649:         threatPath.setAttribute('d', pathStr);
+1650:     }, 120);
+1651:     
+1652:     const eqBars = document.getElementById('hud-eq-bars');
+1653:     if (eqBars) {
+1654:         const eqInterval = setInterval(() => {
+1655:             if (!document.getElementById('hud-eq-bars')) {
+1656:                 clearInterval(eqInterval);
+1657:                 return;
+1658:             }
+1659:             
+1660:             const fills = eqBars.querySelectorAll('.diag-bar-fill');
+1661:             fills.forEach((fill, index) => {
+1662:                 const baseFactor = index % 3 === 0 ? 0.8 : (index % 2 === 0 ? 0.6 : 0.4);
+1663:                 const val = Math.random() * 60 + (baseFactor * 35);
+1664:                 fill.style.height = `${Math.min(95, Math.max(8, val))}%`;
+1665:             });
+1666:         }, 150);
+1667:     }
+1668: }
+1669: 
+1670: init();
+1671: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

@@ -1,0 +1,15 @@
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"Add inline background-image to map container in app.js.\"",
+    "EndLine": "1413",
+    "Instruction": "\"Add style=\\\"background-image: url('images/cyber_world_map.png');\\\" inline to the cyber-map-container div.\"",
+    "ReplacementContent": "\"            <!-- マップコンテナ -->\\n            <div class=\\\"cyber-map-container\\\" id=\\\"map-3d-container\\\" style=\\\"background-image: url('images/cyber_world_map.png');\\\">\\n                <svg viewBox=\\\"0 0 1000 1000\\\" class=\\\"cyber-world-map\\\" id=\\\"map-hotspots-svg\\\">\"",
+    "StartLine": "1411",
+    "TargetContent": "\"            <!-- マップコンテナ -->\\n            <div class=\\\"cyber-map-container\\\" id=\\\"map-3d-container\\\">\\n                <svg viewBox=\\\"0 0 1000 1000\\\" class=\\\"cyber-world-map\\\" id=\\\"map-hotspots-svg\\\">\"",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Adding inline background-image to map container\"",
+    "toolSummary": "\"Replace file content\""
+  }
+}

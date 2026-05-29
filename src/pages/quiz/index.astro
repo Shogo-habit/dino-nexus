@@ -1,0 +1,721 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { DINOSAURS } from '../../data/dinosaurs';
+import { QUIZ_SPECIMENS } from '../../data/quiz';
+---
+
+<Layout title="恐竜クイズ | Dino-Nexus" activeTab="quiz" description="メジャー恐竜のシルエット・近接拡大・生態データから種を当てる、恐竜クイズコーナー。">
+    <!-- Data bridge to client script -->
+    <div id="quiz-data-bridge" 
+         data-dinosaurs={JSON.stringify(DINOSAURS)} 
+         data-quiz-specimens={JSON.stringify(QUIZ_SPECIMENS)} 
+         style="display: none;">
+    </div>
+
+    <div class="quiz-container">
+        <!-- HEADER -->
+        <section class="page-header" style="margin-bottom: 20px;">
+            <h2 class="page-title">恐竜クイズ</h2>
+            <p class="page-subtitle">DINO QUIZ CHALLENGE</p>
+        </section>
+
+        <!-- START PANEL -->
+        <div id="quiz-start-panel" class="hud-panel start-panel">
+            <div class="hud-corner top-left"></div>
+            <div class="hud-corner bottom-right"></div>
+            
+            <div class="panel-icon">☵</div>
+            <h3>恐竜クイズに挑戦</h3>
+            <p style="line-height: 1.8; color: var(--text-dim); font-size: 14px; max-width: 600px; margin: 0 auto 25px auto;">
+                恐竜のシルエット、クローズアップ、または生態データから名前を当てるクイズです。<br>
+                全5問に回答し、あなたの正解率（同期率）を測定します。
+            </p>
+
+            <!-- 難易度セレクター -->
+            <div class="difficulty-section" style="margin-bottom: 30px;">
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 2px;">
+                    // 難易度を選択 (SELECT DIFFICULTY)
+                </div>
+                <div class="difficulty-buttons" style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button class="diff-btn active" data-difficulty="beginner" style="min-width: 120px;">
+                        初級<span style="display:block; font-size: 9px; font-family: var(--font-mono); color: var(--secondary-neon); margin-top: 2px;">BEGINNER</span>
+                    </button>
+                    <button class="diff-btn locked" data-difficulty="intermediate" disabled style="min-width: 120px;">
+                        中級<span style="display:block; font-size: 9px; font-family: var(--font-mono); color: var(--text-dim); margin-top: 2px;">LOCKED</span>
+                    </button>
+                    <button class="diff-btn locked" data-difficulty="advanced" disabled style="min-width: 120px;">
+                        上級<span style="display:block; font-size: 9px; font-family: var(--font-mono); color: var(--text-dim); margin-top: 2px;">LOCKED</span>
+                    </button>
+                    <button class="diff-btn locked" data-difficulty="master" disabled style="min-width: 120px;">
+                        恐竜博士<span style="display:block; font-size: 9px; font-family: var(--font-mono); color: var(--text-dim); margin-top: 2px;">LOCKED</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="start-meta" style="font-family: var(--font-mono); font-size: 12px; color: var(--secondary-neon); margin-bottom: 25px;">
+                [ <span id="difficulty-label-display">初級</span>ハイスコア: <span id="start-high-score">0%</span> ]
+            </div>
+
+            <button id="start-test-btn" class="action-btn">
+                クイズスタート
+            </button>
+        </div>
+
+        <!-- MAIN QUIZ PANEL (Hidden Initially) -->
+        <div id="quiz-main-panel" class="hud-panel quiz-panel" style="display: none;">
+            <div class="hud-corner bottom-right"></div>
+
+            <!-- Quiz Header Info -->
+            <div class="quiz-progress-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--panel-border); padding-bottom: 12px; margin-bottom: 20px; font-family: var(--font-mono); font-size: 12px;">
+                <span class="quiz-step-indicator" style="color: var(--primary-neon);">[ QUESTION: 01 / 05 ]</span>
+                <span class="quiz-score-indicator" style="color: var(--secondary-neon);">正解数: 0</span>
+            </div>
+
+            <div class="quiz-content-layout" style="display: flex; gap: 30px; flex-wrap: wrap;">
+                <!-- Visual/Question Left Area -->
+                <div class="quiz-question-visual-area" style="flex: 1.2; min-width: 300px;">
+                    <!-- Question Prompt Title -->
+                    <div class="question-prompt" id="question-prompt-text" style="font-family: var(--font-mono); font-size: 14px; color: var(--text-main); margin-bottom: 15px; border-left: 3px solid var(--primary-neon); padding-left: 15px;">
+                        クイズをロード中...
+                    </div>
+
+                    <!-- Visual Frame Container -->
+                    <div class="quiz-visual-frame" style="width: 100%; aspect-ratio: 16 / 9; background: #000; border: 1px solid var(--panel-border); border-radius: 4px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center;">
+                        <!-- Silhouette Mode Graphic -->
+                        <div id="visual-silhouette-container" style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center;">
+                            <img id="silhouette-image" src="" alt="Silhouette Specimen" style="height: 85%; width: auto; object-fit: contain; filter: drop-shadow(0 0 12px var(--primary-neon));">
+                        </div>
+
+                        <!-- Close-Up Mode Graphic -->
+                        <div id="visual-closeup-container" style="display: none; width: 100%; height: 100%; overflow: hidden; position: relative;">
+                            <img id="closeup-image" src="" alt="Close-Up Specimen" style="width: 100%; height: 100%; object-fit: contain;">
+                        </div>
+
+                        <!-- Telemetry (Text) Mode Graphic -->
+                        <div id="visual-text-container" style="display: none; width: 100%; height: 100%; padding: 25px; display: flex; flex-direction: column; justify-content: center; font-family: var(--font-mono);">
+                            <div class="telemetry-log" style="font-size: 12px; line-height: 1.8; color: var(--secondary-neon); height: 100%; overflow-y: auto;">
+                                <div style="border-bottom: 1px dashed rgba(0, 242, 255, 0.2); padding-bottom: 5px; margin-bottom: 8px;">[ 恐竜データ解析情報 ]</div>
+                                <div id="telemetry-detail-text"></div>
+                            </div>
+                        </div>
+
+                        <!-- Scanning overlay line -->
+                        <div class="quiz-scan-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background: linear-gradient(180deg, rgba(0, 242, 255, 0) 0%, rgba(0, 242, 255, 0.03) 40%, rgba(0, 242, 255, 0.08) 50%, rgba(0, 242, 255, 0.03) 60%, rgba(0, 242, 255, 0) 100%); animation: quiz-beam 6s linear infinite;"></div>
+                    </div>
+                </div>
+
+                <!-- Control/Answer Choices Right Area -->
+                <div class="quiz-answers-area" style="flex: 1; min-width: 280px; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="answer-label" style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-bottom: 10px;">// 選択肢</div>
+                    
+                    <div class="choices-container" id="quiz-choices-box" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                        <!-- Choice Buttons will be injected here -->
+                    </div>
+
+                    <!-- Answer Explaining Panel (Initially Hidden) -->
+                    <div id="answer-explanation-panel" style="display: none; animation: scan-info-fade 0.4s ease forwards;">
+                        <div class="explanation-box" style="border: 1px solid var(--panel-border); background: rgba(0, 242, 255, 0.01); padding: 15px; border-radius: 4px; position: relative;">
+                            <!-- Correctness Indicator Tag -->
+                            <div id="correctness-indicator" style="font-family: var(--font-mono); font-weight: bold; font-size: 16px; margin-bottom: 8px; letter-spacing: 2px;"></div>
+                            
+                            <!-- Detailed analysis text -->
+                            <p id="explanation-detail-text" style="font-size: 13px; line-height: 1.6; color: var(--text-dim); margin: 0 0 15px 0;"></p>
+                            
+                            <!-- Next button -->
+                            <button id="next-question-btn" class="action-btn" style="width: 100%; padding: 10px; font-size: 13px;">
+                                次の問題へ >
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCANNING LOADING PANEL (Hidden Initially) -->
+        <div id="quiz-scan-loading" class="hud-panel loading-panel" style="display: none; padding: 60px 20px; text-align: center;">
+            <div class="scan-radar-icon" style="color: var(--primary-neon); margin-bottom: 15px; animation: compass-spin 2s linear infinite;">☲</div>
+            <h3 style="color: var(--primary-neon); font-family: var(--font-mono); letter-spacing: 3px; font-size: 18px; margin-bottom: 5px;">LOADING QUESTION...</h3>
+            <p style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); margin-bottom: 15px;">次のクイズを生成中</p>
+            <div style="width: 100%; height: 6px; background: rgba(0, 242, 255, 0.05); border: 1px solid var(--panel-border); overflow: hidden; width: 220px; margin: 0 auto;">
+                <div id="scan-progress-fill" style="width: 0%; height: 100%; background: var(--primary-neon); box-shadow: 0 0 10px var(--primary-neon);"></div>
+            </div>
+        </div>
+
+        <!-- RESULT PANEL (Hidden Initially) -->
+        <div id="quiz-result-panel" class="hud-panel result-panel" style="display: none;">
+            <div class="hud-corner top-left"></div>
+            <div class="hud-corner bottom-right"></div>
+            
+            <div id="high-score-announcement" style="display: none; border: 1px solid var(--alert-neon); background: rgba(255, 0, 90, 0.05); border-left-width: 5px; color: var(--alert-neon); font-family: var(--font-mono); font-size: 12px; padding: 12px 20px; margin-bottom: 25px; letter-spacing: 1px; border-radius: 0 4px 4px 0; animation: glitch 0.5s ease-in-out;">
+                ▲ NEW HIGH SCORE: 自己記録を更新しました！
+            </div>
+
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div class="result-title" style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); letter-spacing: 2px;">// FINISHED //</div>
+                <h3 style="font-size: 24px; margin: 10px 0 25px 0;">クイズ結果レポート</h3>
+
+                <!-- Synchronization Score Circle Meter -->
+                <div class="sync-meter-container" style="position: relative; width: 160px; height: 160px; margin: 0 auto 20px auto; display: flex; align-items: center; justify-content: center;">
+                    <svg style="width: 100%; height: 100%; transform: rotate(-90deg);">
+                        <circle cx="80" cy="80" r="70" fill="transparent" stroke="rgba(0, 242, 255, 0.06)" stroke-width="8"></circle>
+                        <circle id="sync-meter-circle" cx="80" cy="80" r="70" fill="transparent" stroke="var(--primary-neon)" stroke-width="8" stroke-dasharray="440" stroke-dashoffset="440" style="transition: stroke-dashoffset 1.5s cubic-bezier(0.1, 0.8, 0.1, 1); filter: drop-shadow(0 0 8px var(--primary-neon));"></circle>
+                    </svg>
+                    <div class="sync-score-text-box" style="position: absolute; text-align: center; font-family: var(--font-mono);">
+                        <div id="result-score-percent" style="font-size: 32px; font-weight: bold; color: var(--text-main); line-height: 1;">0%</div>
+                        <div style="font-size: 9px; color: var(--primary-neon); margin-top: 4px; letter-spacing: 1.5px;">正解率</div>
+                    </div>
+                </div>
+
+                <div id="result-rank-badge" style="font-family: var(--font-mono); font-size: 16px; font-weight: bold; color: var(--secondary-neon); letter-spacing: 2px;"></div>
+                <p id="result-rank-desc" style="font-size: 13px; color: var(--text-dim); max-width: 500px; margin: 10px auto 0 auto; line-height: 1.6;"></p>
+            </div>
+
+            <!-- Review Items -->
+            <div class="review-section" style="margin-top: 40px; border-top: 1px solid var(--panel-border); padding-top: 30px;">
+                <h4 style="font-family: var(--font-mono); color: var(--primary-neon); margin-bottom: 20px; font-size: 13px;">// クイズで出題された恐竜の復習 (図鑑へリンク)</h4>
+                
+                <div class="review-grid" id="result-review-box" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                    <!-- Review cards dynamically injected here -->
+                </div>
+            </div>
+
+            <!-- Result Actions -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button id="retry-test-btn" class="action-btn" style="border-color: var(--secondary-neon); color: var(--secondary-neon); box-shadow: 0 0 10px rgba(0, 255, 102, 0.1);">
+                    もう一度挑戦する
+                </button>
+                <a href="/dictionary" class="nav-link" style="display: flex; align-items: center; justify-content: center; border: 1px solid var(--panel-border); background: var(--panel-bg); text-decoration: none; padding: 12px 30px; font-size: 14px; font-family: var(--font-mono); text-transform: uppercase; font-weight: 700; border-radius: 4px; transition: all 0.3s ease;">
+                    [ 図鑑アーカイブへ ]
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Client-side Interactive Logic -->
+    <script>
+        const HIGH_SCORE_BASE_KEY = 'dino_nexus_quiz_highscore';
+        
+        let quizState = {
+            dinosaurs: [],
+            quizSpecimens: [],
+            questions: [], // Array of generated questions
+            currentStep: 0,
+            score: 0,
+            answersRecorded: [], // { d: dino, correct: boolean }
+            selectedDifficulty: 'beginner' // デフォルト
+        };
+
+        function getHighScoreKey(difficulty: string) {
+            return `${HIGH_SCORE_BASE_KEY}_${difficulty}`;
+        }
+
+        function initQuizProgram() {
+            const bridge = document.getElementById('quiz-data-bridge');
+            if (!bridge) return;
+
+            // Load data
+            quizState.dinosaurs = JSON.parse(bridge.getAttribute('data-dinosaurs') || '[]');
+            quizState.quizSpecimens = JSON.parse(bridge.getAttribute('data-quiz-specimens') || '[]');
+
+            // Bind start button
+            const startPanel = document.getElementById('quiz-start-panel');
+            const mainPanel = document.getElementById('quiz-main-panel');
+            const resultPanel = document.getElementById('quiz-result-panel');
+            const startBtn = document.getElementById('start-test-btn');
+            const retryBtn = document.getElementById('retry-test-btn');
+            
+            if (startBtn) {
+                startBtn.addEventListener('click', startTest);
+            }
+            if (retryBtn) {
+                retryBtn.addEventListener('click', startTest);
+            }
+
+            // Bind difficulty selector buttons
+            const diffButtons = document.querySelectorAll('.diff-btn');
+            diffButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const target = e.currentTarget as HTMLButtonElement;
+                    if (target.classList.contains('locked')) return;
+                    
+                    diffButtons.forEach(b => b.classList.remove('active'));
+                    target.classList.add('active');
+                    
+                    quizState.selectedDifficulty = target.getAttribute('data-difficulty') || 'beginner';
+                    
+                    // Update labels
+                    const diffLabel = document.getElementById('difficulty-label-display');
+                    if (diffLabel) {
+                        diffLabel.innerText = target.firstChild ? target.firstChild.textContent!.trim() : '初級';
+                    }
+                    
+                    displayHighScore();
+                });
+            });
+
+            // Display highscore on start panel
+            displayHighScore();
+        }
+
+        function displayHighScore() {
+            const hsSpan = document.getElementById('start-high-score');
+            if (hsSpan) {
+                const key = getHighScoreKey(quizState.selectedDifficulty);
+                const hs = localStorage.getItem(key) || '0';
+                hsSpan.innerText = `${hs}%`;
+            }
+        }
+
+        // Generate random test of 5 questions
+        function startTest() {
+            document.getElementById('quiz-start-panel')!.style.display = 'none';
+            document.getElementById('quiz-result-panel')!.style.display = 'none';
+            
+            // Filter specimens by selected difficulty
+            const filteredSpecimens = quizState.quizSpecimens.filter(
+                (specimen: any) => specimen.difficulty === quizState.selectedDifficulty
+            );
+
+            // Fallback to all if empty
+            const specimensToUse = filteredSpecimens.length > 0 ? filteredSpecimens : quizState.quizSpecimens;
+
+            // Randomly select 5 specimens
+            const shuffledSpecimens = [...specimensToUse].sort(() => 0.5 - Math.random());
+            const selectedSpecimens = shuffledSpecimens.slice(0, 5);
+
+            // Modes: 0 = Silhouette, 1 = Close-Up, 2 = Telemetry (Text)
+            quizState.questions = selectedSpecimens.map((specimen: any, index) => {
+                const d = quizState.dinosaurs.find((item: any) => item.id === specimen.id);
+                const mode = Math.floor(Math.random() * 3); // 0, 1, 2
+                
+                // Generate 4 unique choices from specimens of the SAME difficulty
+                const incorrects = quizState.dinosaurs
+                    .filter((item: any) => item.id !== d.id && specimensToUse.some((qs: any) => qs.id === item.id))
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, 3);
+                
+                const choices = [d, ...incorrects].sort(() => 0.5 - Math.random());
+
+                return {
+                    specimen: specimen,
+                    dino: d,
+                    mode: mode,
+                    choices: choices
+                };
+            });
+
+            quizState.currentStep = 0;
+            quizState.score = 0;
+            quizState.answersRecorded = [];
+
+            // Load first question
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const currentQ = quizState.questions[quizState.currentStep];
+            
+            // Update UI indices
+            const stepIndicator = document.querySelector('.quiz-step-indicator');
+            const scoreIndicator = document.querySelector('.quiz-score-indicator');
+            
+            if (stepIndicator) {
+                stepIndicator.innerText = `[ QUESTION: 0${quizState.currentStep + 1} / 05 ]`;
+            }
+            if (scoreIndicator) {
+                scoreIndicator.innerText = `正解数: ${quizState.score}`;
+            }
+
+            // Setup prompt and visual mode
+            const promptText = document.getElementById('question-prompt-text');
+            const silContainer = document.getElementById('visual-silhouette-container');
+            const closeContainer = document.getElementById('visual-closeup-container');
+            const textContainer = document.getElementById('visual-text-container');
+            
+            silContainer!.style.display = 'none';
+            closeContainer!.style.display = 'none';
+            textContainer!.style.display = 'none';
+            
+            // Hide explanation
+            document.getElementById('answer-explanation-panel')!.style.display = 'none';
+
+            // Enable choices interaction
+            const choicesBox = document.getElementById('quiz-choices-box');
+            choicesBox!.innerHTML = '';
+
+            if (currentQ.mode === 0) {
+                // Silhouette Mode
+                promptText!.innerText = `[クイズ形式: シルエット] この影絵が示す恐竜の名前を選択してください。`;
+                silContainer!.style.display = 'flex';
+                
+                const silImg = document.getElementById('silhouette-image') as HTMLImageElement;
+                silImg.src = `/images/silhouette/${currentQ.dino.id}.png`; // 事前生成した高品質な透過シルエットPNGを使用
+            }             else if (currentQ.mode === 1) {
+                // Close-Up Mode
+                promptText!.innerText = `[クイズ形式: クローズアップ] 拡大表示された特徴（${currentQ.specimen.featureName}）から名前を当ててください。`;
+                closeContainer!.style.display = 'block';
+                
+                const closeImg = document.getElementById('closeup-image') as HTMLImageElement;
+                closeImg.src = `/${currentQ.dino.image}`; // メインイラストWEBPを使用
+                
+                // Apply transform styling dynamically
+                closeImg.style.transform = `scale(${currentQ.specimen.zoom})`;
+                closeImg.style.transformOrigin = `${currentQ.specimen.originX} ${currentQ.specimen.originY}`;
+            } 
+            else {
+                // Telemetry (Text) Mode
+                promptText!.innerText = `[クイズ形式: 生態解析] 一部が伏せられた以下の解析ログから恐竜を特定してください。`;
+                textContainer!.style.display = 'flex';
+                
+                const telemetryText = document.getElementById('telemetry-detail-text');
+                
+                // Hide species name and scientific name with placeholder
+                let rawDesc = currentQ.dino.description;
+                const regexName = new RegExp(currentQ.dino.name, 'g');
+                const maskedDesc = rawDesc.replace(regexName, ' ［ ？？？ ］ ');
+                
+                let traitsHtml = currentQ.dino.bioTraits.map((t: any) => {
+                    return `<br>&bull; 特性: ${t.trait} -> [${t.value}] - ${t.detail}`;
+                }).join('');
+
+                telemetryHtml: {
+                    telemetryText!.innerHTML = `
+                        <strong>&bull; 出現地域:</strong> ${currentQ.dino.region}<br>
+                        <strong>&bull; 生息年代:</strong> ${currentQ.dino.era}<br>
+                        <strong>&bull; 全長/推定体重:</strong> ${currentQ.dino.length} / ${currentQ.dino.weight}<br>
+                        <strong>&bull; 分類系統:</strong> ${currentQ.dino.group || '未分類'}<br>
+                        <strong>&bull; 説明文:</strong><br>
+                        <p style="padding-left: 10px; margin-top: 5px; color: var(--text-dim);">${maskedDesc}</p>
+                        <strong>&bull; パラメータ特性:</strong> ${traitsHtml}
+                    `;
+                }
+            }
+
+            // Populate choices
+            currentQ.choices.forEach((choice: any, index: number) => {
+                const btn = document.createElement('button');
+                btn.className = 'nav-link';
+                btn.style.width = '100%';
+                btn.style.textAlign = 'left';
+                btn.style.padding = '12px 20px';
+                btn.style.fontSize = '14px';
+                btn.style.background = 'var(--panel-bg)';
+                btn.style.border = '1px solid var(--panel-border)';
+                btn.style.display = 'flex';
+                btn.style.justifyContent = 'space-between';
+                btn.style.alignItems = 'center';
+                
+                btn.innerHTML = `
+                    <span>[ 0${index + 1} ] &nbsp; ${choice.name}</span>
+                    <span class="choice-indicator" style="font-family: var(--font-mono); color: var(--primary-neon);">>> ANALYZE</span>
+                `;
+                
+                btn.addEventListener('click', () => submitAnswer(choice, btn));
+                choicesBox!.appendChild(btn);
+            });
+
+            // Display main panel
+            document.getElementById('quiz-main-panel')!.style.display = 'block';
+        }
+
+        function submitAnswer(chosenDino: any, clickedBtn: HTMLElement) {
+            const currentQ = quizState.questions[quizState.currentStep];
+            const correctDino = currentQ.dino;
+            const isCorrect = chosenDino.id === correctDino.id;
+
+            // Record answer
+            quizState.answersRecorded.push({
+                dino: correctDino,
+                correct: isCorrect
+            });
+
+            if (isCorrect) {
+                quizState.score++;
+            }
+
+            // Disable all choice buttons and colorize
+            const choicesBox = document.getElementById('quiz-choices-box');
+            const buttons = Array.from(choicesBox!.getElementsByTagName('button'));
+            
+            buttons.forEach((btn: any) => {
+                btn.disabled = true;
+                const text = btn.innerText;
+                
+                // Extract original dino object representing this button
+                const btnDino = currentQ.choices.find((c: any) => text.includes(c.name));
+                
+                if (btnDino.id === correctDino.id) {
+                    btn.style.borderColor = 'var(--secondary-neon)'; // Green
+                    btn.style.background = 'rgba(0, 255, 102, 0.05)';
+                    btn.querySelector('.choice-indicator').innerText = '正解 (CORRECT)';
+                    btn.querySelector('.choice-indicator').style.color = 'var(--secondary-neon)';
+                } else if (btnDino.id === chosenDino.id && !isCorrect) {
+                    btn.style.borderColor = 'var(--alert-neon)'; // Red/Pink
+                    btn.style.background = 'rgba(255, 0, 90, 0.05)';
+                    btn.querySelector('.choice-indicator').innerText = '不正解 (WRONG)';
+                    btn.querySelector('.choice-indicator').style.color = 'var(--alert-neon)';
+                } else {
+                    btn.style.opacity = '0.5';
+                    btn.querySelector('.choice-indicator').innerText = '----';
+                    btn.querySelector('.choice-indicator').style.color = 'var(--text-dim)';
+                }
+            });
+
+            // Show explanation
+            const expPanel = document.getElementById('answer-explanation-panel');
+            const correctnessInd = document.getElementById('correctness-indicator');
+            const expDetail = document.getElementById('explanation-detail-text');
+            const nextBtn = document.getElementById('next-question-btn');
+            
+            if (isCorrect) {
+                correctnessInd!.innerText = "▲ 正解 (CORRECT)";
+                correctnessInd!.style.color = "var(--secondary-neon)";
+            } else {
+                correctnessInd!.innerText = "▼ 不正解 (WRONG)";
+                correctnessInd!.style.color = "var(--alert-neon)";
+            }
+
+            expDetail!.innerHTML = `
+                <strong>正解: ${correctDino.name}</strong> (${correctDino.scientificName})<br>
+                ${correctDino.description}<br>
+                <span style="color: var(--secondary-neon); font-size: 11px; font-family: var(--font-mono); display: block; margin-top: 5px;">
+                    [解説]: ${currentQ.specimen.featureName}
+                </span>
+            `;
+
+            if (quizState.currentStep < 4) {
+                nextBtn!.innerText = "次の問題へ >";
+            } else {
+                nextBtn!.innerText = "クイズ結果へ >";
+            }
+
+            // Bind next question action
+            // Remove previous event listener to avoid stacking
+            const newNextBtn = nextBtn!.cloneNode(true) as HTMLButtonElement;
+            nextBtn!.parentNode!.replaceChild(newNextBtn, nextBtn!);
+            
+            newNextBtn.addEventListener('click', proceedToNext);
+
+            expPanel!.style.display = 'block';
+        }
+
+        function proceedToNext() {
+            quizState.currentStep++;
+            
+            if (quizState.currentStep < 5) {
+                // Show scanning animation
+                showScanningScreen(() => {
+                    loadQuestion();
+                });
+            } else {
+                // Show scanning animation then show result
+                showScanningScreen(() => {
+                    showResults();
+                });
+            }
+        }
+
+        function showScanningScreen(callback: () => void) {
+            document.getElementById('quiz-main-panel')!.style.display = 'none';
+            
+            const loadingPanel = document.getElementById('quiz-scan-loading');
+            const progressBar = document.getElementById('scan-progress-fill');
+            
+            loadingPanel!.style.display = 'block';
+            progressBar!.style.width = '0%';
+            
+            let val = 0;
+            const interval = setInterval(() => {
+                val += 15;
+                if (progressBar) progressBar.style.width = `${Math.min(100, val)}%`;
+                
+                if (val >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        loadingPanel!.style.display = 'none';
+                        callback();
+                    }, 200);
+                }
+            }, 80);
+        }
+
+        function showResults() {
+            const finalScorePercent = (quizState.score / 5) * 100;
+            
+            // Record High Score in localStorage per difficulty
+            const hsKey = getHighScoreKey(quizState.selectedDifficulty);
+            const previousHighScore = parseInt(localStorage.getItem(hsKey) || '0');
+            let isNewHighScore = false;
+            
+            if (finalScorePercent > previousHighScore) {
+                localStorage.setItem(hsKey, finalScorePercent.toString());
+                isNewHighScore = true;
+                displayHighScore();
+            }
+
+            // Render Circle SVG score animation
+            const meterCircle = document.getElementById('sync-meter-circle');
+            const scoreText = document.getElementById('result-score-percent');
+            
+            if (meterCircle) {
+                // Radius is 70. Circumference is 2 * PI * r = 439.8 (approx 440)
+                const circumference = 440;
+                const offset = circumference - (circumference * finalScorePercent) / 100;
+                meterCircle.style.strokeDashoffset = offset.toString();
+            }
+            if (scoreText) {
+                scoreText.innerText = `${finalScorePercent}%`;
+            }
+
+            // High score alert display
+            const hsAlert = document.getElementById('high-score-announcement');
+            hsAlert!.style.display = (isNewHighScore && finalScorePercent > 0) ? 'block' : 'none';
+
+            // Score details and Rank badge
+            const rankBadge = document.getElementById('result-rank-badge');
+            const rankDesc = document.getElementById('result-rank-desc');
+
+            if (finalScorePercent === 100) {
+                rankBadge!.innerText = "Sランク: 恐竜マスター (全問正解！)";
+                rankBadge!.style.color = "var(--secondary-neon)";
+                rankDesc!.innerText = "素晴らしい知識量です！全問正解おめでとうございます。これであなたも立派な恐竜マスターです。";
+            } 
+            else if (finalScorePercent === 80) {
+                rankBadge!.innerText = "Aランク: 恐竜博士級 (優秀！)";
+                rankBadge!.style.color = "var(--primary-neon)";
+                rankDesc!.innerText = "非常に優秀な成績です！あと一歩で満点でした。図鑑やトピックスを読み直して完璧を目指しましょう。";
+            }
+            else if (finalScorePercent === 60) {
+                rankBadge!.innerText = "Bランク: 恐竜ファン級 (普通)";
+                rankBadge!.style.color = "var(--text-main)";
+                rankDesc!.innerText = "恐竜の知識をしっかり持っていますね。さらにスキャンや図鑑を学習すれば、さらに高得点が狙えます！";
+            }
+            else {
+                rankBadge!.innerText = "Cランク: 恐竜初心者級 (もっと学ぼう)";
+                rankBadge!.style.color = "var(--alert-neon)";
+                rankDesc!.innerText = "少し難しかったかもしれません。図鑑アーカイブの恐竜データや、サイズ比較などを確認して再学習してみましょう！";
+            }
+
+            // Render review grid
+            const reviewBox = document.getElementById('result-review-box');
+            reviewBox!.innerHTML = '';
+
+            quizState.answersRecorded.forEach(record => {
+                const card = document.createElement('a');
+                card.href = `/dictionary/${record.dino.id}`;
+                card.style.textDecoration = 'none';
+                card.style.color = 'inherit';
+                
+                const borderColor = record.correct ? 'var(--secondary-neon)' : 'var(--alert-neon)';
+                const badgeText = record.correct ? '正解' : '不正解';
+                const badgeColor = record.correct ? 'var(--secondary-neon)' : 'var(--alert-neon)';
+
+                card.innerHTML = `
+                    <div class="related-card hud-panel" style="cursor: pointer; height: 100%; border-color: ${borderColor};">
+                        <div class="related-img-wrap" style="width: 100%; height: auto; aspect-ratio: 16 / 9; overflow: hidden; position: relative;">
+                            <img src="/${record.dino.image}" alt="${record.dino.name}" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover;">
+                            <span style="position: absolute; top: 5px; right: 5px; font-family: var(--font-mono); font-size: 8px; background: rgba(0,0,0,0.8); color: ${badgeColor}; border: 1px solid ${badgeColor}; padding: 1px 4px; border-radius: 2px;">
+                                ${badgeText}
+                            </span>
+                        </div>
+                        <h4 class="related-name" style="font-size: 12px; margin: 8px 0 4px 0; color: var(--text-main);">${record.dino.name}</h4>
+                        <div class="related-meta" style="font-size: 9px; color: var(--text-dim);">${record.dino.era}</div>
+                    </div>
+                `;
+                
+                reviewBox!.appendChild(card);
+            });
+
+            // Show result panel
+            document.getElementById('quiz-result-panel')!.style.display = 'block';
+        }
+
+        // Initialize quiz on page load/transition
+        document.addEventListener('astro:page-load', initQuizProgram);
+    </script>
+</Layout>
+
+<style>
+    .quiz-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .start-panel {
+        text-align: center;
+        padding: 60px 40px;
+        border-color: var(--panel-border);
+    }
+    .panel-icon {
+        font-size: 48px;
+        color: var(--primary-neon);
+        margin-bottom: 20px;
+        text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+    }
+    .start-panel h3 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+        color: var(--text-main);
+    }
+    .action-btn {
+        background: rgba(0, 242, 255, 0.08);
+        border: 1px solid var(--primary-neon);
+        color: var(--primary-neon);
+        font-family: var(--font-mono);
+        font-weight: 700;
+        font-size: 15px;
+        padding: 12px 36px;
+        cursor: pointer;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border-radius: 4px;
+        box-shadow: 0 0 15px rgba(0, 242, 255, 0.15);
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .action-btn:hover {
+        background: var(--primary-neon);
+        color: #000;
+        box-shadow: 0 0 25px var(--primary-neon);
+    }
+    .quiz-panel {
+        padding: 30px;
+    }
+    @keyframes quiz-beam {
+        0% { top: -100%; }
+        100% { top: 100%; }
+    }
+    
+    /* 難易度選択ボタン */
+    .diff-btn {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--panel-border);
+        color: var(--text-dim);
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .diff-btn:hover:not(.locked) {
+        border-color: var(--primary-neon);
+        color: var(--primary-neon);
+        background: rgba(0, 242, 255, 0.05);
+    }
+    .diff-btn.active {
+        border-color: var(--primary-neon);
+        color: var(--primary-neon);
+        background: rgba(0, 242, 255, 0.1);
+        box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+    }
+    .diff-btn.locked {
+        opacity: 0.4;
+        cursor: not-allowed;
+        border-style: dashed;
+        background: rgba(0, 0, 0, 0.2);
+    }
+</style>

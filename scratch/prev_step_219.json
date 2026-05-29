@@ -1,0 +1,15 @@
+{
+  "name": "replace_file_content",
+  "args": {
+    "AllowMultiple": "false",
+    "Description": "\"Update routes in app.js to replace vs-sim/news-feed with topics and world-map\"",
+    "EndLine": "52",
+    "Instruction": "\"Modify the routes mapping object in app.js.\"",
+    "ReplacementContent": "\"// --- ROUTER CONFIG ---\\nconst routes = {\\n  home: renderHome,\\n  dictionary: renderDictionary,\\n  'dictionary/:id': renderDetail,\\n  'topics': renderTopics,\\n  'glossary': renderGlossary,\\n  'my-collection': renderMyCollection,\\n  'world-map': renderWorldMap\\n};\"",
+    "StartLine": "42",
+    "TargetContent": "\"// --- ROUTER CONFIG ---\\nconst routes = {\\n  home: renderHome,\\n  dictionary: renderDictionary,\\n  'dictionary/:id': renderDetail,\\n  'vs-sim': renderVsSim,\\n  'news-feed': renderNews,\\n  'glossary': renderGlossary,\\n  'my-collection': renderMyCollection\\n};\"",
+    "TargetFile": "\"/Users/kosako/kaihatsu/dinosaurs website/app.js\"",
+    "toolAction": "\"Updating app.js routes\"",
+    "toolSummary": "\"Replace file content\""
+  }
+}

@@ -1,0 +1,59 @@
+Created At: 2026-05-25T12:06:20Z
+Completed At: 2026-05-25T12:06:20Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 2042
+Total Bytes: 92403
+Showing lines 1200 to 1250
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1200:             `).join('')}
+1201:         </div>
+1202:     `;
+1203: }
+1204: 
+1205: function renderTopicDetail(id) {
+1206:     const topic = TOPICS.find(item => item.id === id)let CACHED_MAP_DOTS = null;
+1207: 
+1208: function generateHighResDots() {
+1209:     if (CACHED_MAP_DOTS) return CACHED_MAP_DOTS;
+1210:     
+1211:     const tempSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+1212:     tempSvg.setAttribute("viewBox", "0 0 900 450");
+1213:     tempSvg.style.position = "absolute";
+1214:     tempSvg.style.width = "0";
+1215:     tempSvg.style.height = "0";
+1216:     tempSvg.style.pointerEvents = "none";
+1217:     tempSvg.id = "temp-map-detector";
+1218:     
+1219:     const paths = {};
+1220:     for (const [region, d] of Object.entries(WORLD_MAP_PATHS)) {
+1221:         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+1222:         path.setAttribute("d", d);
+1223:         tempSvg.appendChild(path);
+1224:         paths[region] = path;
+1225:     }
+1226:     document.body.appendChild(tempSvg);
+1227:     
+1228:     const dots = [];
+1229:     const pt = tempSvg.createSVGPoint();
+1230:     
+1231:     // 3D球面ドーム計算用の定数
+1232:     const cx = 450;
+1233:     const cy = 225;
+1234:     const R = 430; // 半球ドームの半径
+1235:     
+1236:     const stepX = 5.0; 
+1237:     const stepY = 7.0;
+1238:     
+1239:     for (let y = 10; y < 440; y += stepY) {
+1240:         for (let x = 10; x < 890; x += stepX) {
+1241:             pt.x = x;
+1242:             pt.y = y;
+1243:             let regionFound = null;
+1244:             
+1245:             for (const [region, path] of Object.entries(paths)) {
+1246:                 if (path.isPointInFill(pt)) {
+1247:                     regionFound = region;
+1248:                     break;
+1249:                 }
+1250:             }
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.

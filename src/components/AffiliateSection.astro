@@ -1,0 +1,312 @@
+---
+import { DINO_AFFILIATE_MAP, DEFAULT_AFFILIATE_PRODUCTS, type AffiliateProduct } from '../data/affiliate';
+
+interface Props {
+    dinoId: string;
+}
+
+const { dinoId } = Astro.props;
+
+// アフィリエイト製品の抽出ロジック
+let products: AffiliateProduct[] = [];
+
+const mapped = DINO_AFFILIATE_MAP[dinoId];
+
+if (mapped && mapped.length > 0) {
+    if (mapped.length === 2) {
+        // フィギュアと書籍の両方が登録されている場合
+        products = mapped;
+    } else if (mapped.length === 1) {
+        // 片方（例: フィギュアのみ）しかない場合、もう片方はデフォルトの図鑑を補填
+        products = [
+            mapped[0],
+            mapped[0].type === 'figure' ? DEFAULT_AFFILIATE_PRODUCTS[1] : DEFAULT_AFFILIATE_PRODUCTS[0]
+        ];
+    }
+} else {
+    // 登録がない場合は共通デフォルトを表示 (フィギュア＋図鑑)
+    products = DEFAULT_AFFILIATE_PRODUCTS;
+}
+---
+
+<section class="affiliate-container">
+    <div class="affiliate-header">
+        <span class="header-label">// ARCHIVAL DATA COUPLING</span>
+        <h3 class="header-title">立体標本・推薦文献アーカイブ</h3>
+        <p class="header-subtitle">RECOMMENDED MODELS & LITERATURE FOR FOSSIL SPECIES: {dinoId.toUpperCase()}</p>
+    </div>
+
+    <div class="affiliate-grid">
+        {products.map((product) => (
+            <div class="product-card hud-panel">
+                <!-- 装飾コーナー -->
+                <div class="hud-corner top-left"></div>
+                <div class="hud-corner bottom-right"></div>
+
+                <!-- カテゴリバッジ -->
+                <span class={`product-badge ${product.type}`}>
+                    [ {product.badgeText} ]
+                </span>
+
+                <!-- 画像枠 -->
+                <div class="product-img-wrap">
+                    <div class="img-grid-overlay"></div>
+                    <img 
+                        src={product.imageUrl} 
+                        alt={product.title} 
+                        loading="lazy" 
+                        decoding="async" 
+                        class="product-image"
+                    />
+                </div>
+
+                <!-- 情報領域 -->
+                <div class="product-info">
+                    <h4 class="product-title">{product.title}</h4>
+                    <p class="product-desc">{product.subtitle}</p>
+                    
+                    <ul class="product-specs">
+                        {product.details.map((detail) => (
+                            <li>&bull; {detail}</li>
+                        ))}
+                    </ul>
+                </div>
+
+                <!-- アクション領域 -->
+                <div class="product-actions">
+                    <div class="product-price">{product.priceText}</div>
+                    <a 
+                        href={product.affiliateUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="shop-action-btn"
+                    >
+                        <span>{product.type === 'figure' ? 'VIEW PRODUCT' : 'SHOP NOW'}</span>
+                        <span class="btn-arrow">&raquo;</span>
+                    </a>
+                </div>
+            </div>
+        ))}
+    </div>
+</section>
+
+<style>
+    .affiliate-container {
+        margin-top: 40px;
+        margin-bottom: 30px;
+        border-top: 1px solid var(--panel-border);
+        padding-top: 30px;
+    }
+    
+    .affiliate-header {
+        margin-bottom: 25px;
+        font-family: var(--font-mono);
+    }
+    
+    .header-label {
+        font-size: 10px;
+        color: var(--primary-neon);
+        letter-spacing: 2px;
+        display: block;
+        margin-bottom: 4px;
+    }
+    
+    .header-title {
+        font-size: 18px;
+        color: var(--text-main);
+        margin: 0 0 5px 0;
+        font-weight: 700;
+    }
+    
+    .header-subtitle {
+        font-size: 11px;
+        color: var(--text-dim);
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    .affiliate-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 25px;
+    }
+    
+    .product-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-color: rgba(0, 242, 255, 0.15);
+        background: rgba(1, 10, 18, 0.6);
+        box-shadow: 0 0 15px rgba(0, 242, 255, 0.02);
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        min-height: 480px;
+    }
+    
+    .product-card:hover {
+        border-color: var(--primary-neon);
+        box-shadow: 0 0 25px rgba(0, 242, 255, 0.08);
+        transform: translateY(-2px);
+    }
+    
+    .product-badge {
+        font-family: var(--font-mono);
+        font-size: 9px;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+        margin-bottom: 15px;
+        display: inline-block;
+    }
+    
+    .product-badge.figure {
+        color: var(--primary-neon);
+    }
+    
+    .product-badge.book {
+        color: var(--secondary-neon);
+    }
+
+    .product-img-wrap {
+        width: 100%;
+        height: 180px;
+        background: #010408;
+        border: 1px solid rgba(0, 242, 255, 0.1);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .img-grid-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: 
+            linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px);
+        background-size: 15px 15px;
+        pointer-events: none;
+    }
+    
+    .product-image {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+        filter: drop-shadow(0 0 10px rgba(255,255,255,0.05));
+        transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover .product-image {
+        transform: scale(1.05);
+    }
+    
+    .product-info {
+        flex-grow: 1;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .product-title {
+        font-size: 15px;
+        font-weight: bold;
+        color: var(--text-main);
+        margin: 0 0 8px 0;
+        line-height: 1.4;
+    }
+    
+    .product-desc {
+        font-size: 12px;
+        color: var(--text-dim);
+        margin: 0 0 15px 0;
+        line-height: 1.6;
+    }
+    
+    .product-specs {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-dim);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .product-specs li {
+        border-left: 2px solid var(--primary-neon);
+        padding-left: 10px;
+    }
+    
+    .product-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px dashed rgba(0, 242, 255, 0.1);
+        padding-top: 15px;
+        margin-top: auto;
+    }
+    
+    .product-price {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--text-main);
+    }
+    
+    .shop-action-btn {
+        background: rgba(0, 242, 255, 0.06);
+        border: 1px solid var(--primary-neon);
+        color: var(--primary-neon);
+        font-family: var(--font-mono);
+        font-weight: 700;
+        font-size: 11px;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 0 10px rgba(0, 242, 255, 0.1);
+        transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .shop-action-btn:hover {
+        background: var(--primary-neon);
+        color: #000;
+        box-shadow: 0 0 15px var(--primary-neon);
+    }
+    
+    .btn-arrow {
+        font-size: 12px;
+        transition: transform 0.3s ease;
+    }
+    
+    .shop-action-btn:hover .btn-arrow {
+        transform: translateX(3px);
+    }
+
+    @media (max-width: 480px) {
+        .affiliate-grid {
+            grid-template-columns: 1fr;
+        }
+        .product-card {
+            min-height: auto;
+        }
+        .product-actions {
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .shop-action-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>

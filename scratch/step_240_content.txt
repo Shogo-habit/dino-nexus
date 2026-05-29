@@ -1,0 +1,29 @@
+Created At: 2026-05-27T12:34:55Z
+Completed At: 2026-05-27T12:34:55Z
+File Path: `file:///Users/kosako/kaihatsu/dinosaurs%20website/app.js`
+Total Lines: 1671
+Total Bytes: 75593
+Showing lines 550 to 570
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+550:             const matchesSearch = 
+551:                 d.name.startsWith(searchKata) || 
+552:                 d.kana.startsWith(searchHira) || 
+553:                 d.id.includes(searchVal) ||
+554:                 (d.scientificName && d.scientificName.toLowerCase().includes(searchVal));
+555:             const matchesEra = !eraVal || d.era.includes(eraVal);
+556:             const matchesRegion = !regionVal || 
+557:                 (regionVal === '海洋' ? 
+558:                     (d.region.includes('海') && !d.region.includes('北海道')) : 
+559:                     d.region.includes(regionVal));
+560:             const matchesGroup = !group.value || d.group === group.value;
+561:             return matchesSearch && matchesEra && matchesRegion && matchesGroup;
+562:         });
+563: 
+564:         // Sorting
+565:         if (sortVal === 'kana') {
+566:             filtered.sort((a, b) => a.kana.localeCompare(b.kana, 'ja'));
+567:         } else if (sortVal === 'size') {
+568:             filtered.sort((a, b) => extractNumber(b.length) - extractNumber(a.length));
+569:         }
+570: 
+The above content does NOT show the entire file contents. If you need to view any lines of the file which were not shown to complete your task, call this tool again to view those lines.
