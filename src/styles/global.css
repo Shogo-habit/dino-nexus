@@ -2022,3 +2022,199 @@ body {
   text-shadow: 0 0 8px var(--primary-neon);
 }
 
+/* ==========================================================================
+   MOBILE RESPONSIVE STYLES (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* --- 共通レイアウト --- */
+  #app-container {
+    padding: 20px 15px; /* モバイルでは余白を狭める */
+  }
+
+  /* --- 共通ヘッダー & ナビゲーション --- */
+  .main-header {
+    flex-direction: column;
+    height: auto;
+    padding: 15px 15px 5px 15px;
+    gap: 12px;
+  }
+
+  .logo-container {
+    align-items: center;
+    text-align: center;
+  }
+
+  .nav-menu {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding-bottom: 10px;
+    /* スクロールバー非表示 (Firefox / IE) */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Chrome / Safari / Opera 用スクロールバー非表示 */
+  .nav-menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 8px 12px;
+    font-size: 13px;
+    flex-shrink: 0; /* 折りたたまれずにスクロールさせる */
+    border-radius: 4px;
+    background: rgba(0, 242, 255, 0.02);
+  }
+
+  /* --- コマンドセンター (トップページ) --- */
+  .home-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .dino-day-hero {
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+  }
+
+  .hero-img-container {
+    width: 100%;
+    height: 200px;
+    flex: none;
+  }
+
+  .hero-img-container::after {
+    /* グラデーション方向を上から下へ変更 */
+    background: linear-gradient(180deg, transparent 40%, var(--bg-color) 100%);
+  }
+
+  .hero-content {
+    padding: 20px;
+    flex: none;
+  }
+
+  .hero-name {
+    font-size: 24px !important;
+  }
+
+  /* --- 図鑑一覧ページ --- */
+  .page-header {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 15px !important;
+  }
+
+  .search-header-wrap {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 10px;
+  }
+
+  #dino-search {
+    width: 100% !important;
+  }
+
+  #sort-order {
+    width: 100% !important;
+  }
+
+  .dino-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 15px;
+  }
+
+  /* フィルタトラックの横スクロール保護 */
+  .timeline-track {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* --- 恐竜詳細ページ --- */
+  .detail-layout {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .detail-img-viewer {
+    height: 320px;
+  }
+
+  .spec-panel {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* サイズ比較パネル */
+  .size-comparison-panel {
+    height: 300px !important;
+    margin-top: 25px;
+  }
+
+  .comparison-stage {
+    height: 300px !important;
+    gap: 15px !important;
+    padding: 0 15px 40px 15px !important;
+  }
+
+  .dino-vis-hero img {
+    max-width: 65vw !important;
+  }
+
+  /* --- 世界地図 (ワールドマップ) --- */
+  /* スマホの画面の邪魔になる浮遊ウィジェットを非表示化 */
+  .hud-sector-status,
+  .hud-compass,
+  .hud-radar,
+  .hud-threat-chart,
+  .hud-diagnostics {
+    display: none !important;
+  }
+
+  .terminal-main-content {
+    padding: 15px;
+  }
+
+  /* --- クイズページ --- */
+  .quiz-content-layout {
+    flex-direction: column;
+    gap: 20px !important;
+  }
+
+  .quiz-question-visual-area,
+  .quiz-answers-area {
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  .quiz-visual-frame {
+    aspect-ratio: 4 / 3 !important; /* スマホで見やすい比率に調整 */
+  }
+
+  .start-panel {
+    padding: 30px 15px !important;
+  }
+
+  .sync-meter-container {
+    width: 130px !important;
+    height: 130px !important;
+  }
+}
+
+/* 非常に小さなスマートフォン端末 (max-width: 480px) 用の極小微調整 */
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 20px !important;
+  }
+  
+  .privacy-panel {
+    padding: 20px !important;
+  }
+}
+
+
