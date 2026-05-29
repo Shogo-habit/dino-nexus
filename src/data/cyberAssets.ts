@@ -1660,7 +1660,7 @@ export const SPECIMEN_METADATA = {
         contentHeightPx: 246,
         sourceRes: 1024,
         dinoLeft: '0',
-        refRight: '65%'
+        refRight: '72%'
     },
     velociraptor: {
         bottomGap: 355,
