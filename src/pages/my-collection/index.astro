@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { DINOSAURS } from '../../data/dinosaurs';
 ---
 
-<Layout title="マイ・アーカイブ | Dino-Nexus" activeTab="my-collection" description="保存した恐竜データのアーカイブ。観測済み標本データベース。">
+<Layout title="マイ・アーカイブ | Dino-Portal" activeTab="my-collection" description="保存した恐竜データのアーカイブ。観測済み標本データベース。">
     <section class="page-header">
         <h2 class="page-title">マイ・アーカイブ</h2>
         <p class="page-subtitle">観測済み標本データベース</p>
@@ -52,7 +52,7 @@ import { DINOSAURS } from '../../data/dinosaurs';
     <script>
         import { DINOSAURS } from '../../data/dinosaurs';
 
-        const COLLECTION_KEY = 'dino_nexus_saved_observations';
+        const COLLECTION_KEY = 'dino_portal_saved_observations';
 
         function initMyCollection() {
             const progressText = document.getElementById('collection-progress-text');

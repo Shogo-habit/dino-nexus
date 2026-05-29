@@ -35,7 +35,7 @@ const GROUPS = [
 ];
 ---
 
-<Layout title="生物学的アーカイブ | Dino-Nexus" activeTab="dictionary" description="150種以上の恐竜データを網羅したデジタル・アーカイブ。">
+<Layout title="生物学的アーカイブ | Dino-Portal" activeTab="dictionary" description="150種以上の恐竜データを網羅したデジタル・アーカイブ。">
     <section class="page-header" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; margin-bottom: 20px;">
         <div>
             <h2 class="page-title" style="margin-bottom: 5px;">古生物アーカイブ</h2>
@@ -164,8 +164,8 @@ const GROUPS = [
 
     <!-- Client-side filter and state scripts -->
     <script>
-        const COLLECTION_KEY = 'dino_nexus_saved_observations';
-        const DICT_FILTERS_KEY = 'dino_nexus_dict_filters';
+        const COLLECTION_KEY = 'dino_portal_saved_observations';
+        const DICT_FILTERS_KEY = 'dino_portal_dict_filters';
 
         function initDictionary() {
             const search = document.getElementById('dino-search') as HTMLInputElement;

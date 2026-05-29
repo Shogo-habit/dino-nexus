@@ -43,15 +43,15 @@ const schema = {
     "@graph": [
         {
             "@type": "Article",
-            "headline": `${d.name} | Dino-Nexus Specimen Analysis`,
+            "headline": `${d.name} | Dino-Portal Specimen Analysis`,
             "description": `${d.name}（${d.scientificName}）の生物学的詳細データ。${d.description}`,
-            "image": `https://dino-nexus.example.com/${d.image}`,
+            "image": `https://dino-portal.example.com/${d.image}`,
             "author": {
                 "@type": "Person",
                 "name": AUTHOR_DATA.name,
                 "jobTitle": AUTHOR_DATA.role,
                 "description": AUTHOR_DATA.bio,
-                "url": "https://dino-nexus.example.com/"
+                "url": "https://dino-portal.example.com/"
             }
         },
         {
@@ -124,7 +124,7 @@ const relatedSpecimens = DINOSAURS.filter(item => {
 }).slice(0, 4);
 ---
 
-<Layout title={`${d.name} | Specimen Analysis | Dino-Nexus`} activeTab="dictionary" description={`${d.name} (${d.scientificName}) の生物学的特性、出現年代、生息地、サイズ比較スケールデータ。`}>
+<Layout title={`${d.name} | Specimen Analysis | Dino-Portal`} activeTab="dictionary" description={`${d.name} (${d.scientificName}) の生物学的特性、出現年代、生息地、サイズ比較スケールデータ。`}>
     <!-- Inject dynamic schema -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
 
@@ -253,7 +253,7 @@ const relatedSpecimens = DINOSAURS.filter(item => {
 
     <!-- Client-side logic for observed savings & feedback -->
     <script>
-        const COLLECTION_KEY = 'dino_nexus_saved_observations';
+        const COLLECTION_KEY = 'dino_portal_saved_observations';
 
         function initSpecimenDetail() {
             const saveBtn = document.getElementById('observe-save-btn');

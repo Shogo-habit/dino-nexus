@@ -4,7 +4,7 @@ import { DINOSAURS } from '../../data/dinosaurs';
 import { QUIZ_SPECIMENS } from '../../data/quiz';
 ---
 
-<Layout title="恐竜クイズ | Dino-Nexus" activeTab="quiz" description="メジャー恐竜のシルエット・近接拡大・生態データから種を当てる、恐竜クイズコーナー。">
+<Layout title="恐竜クイズ | Dino-Portal" activeTab="quiz" description="メジャー恐竜のシルエット・近接拡大・生態データから種を当てる、恐竜クイズコーナー。">
     <!-- Data bridge to client script -->
     <div id="quiz-data-bridge" 
          data-dinosaurs={JSON.stringify(DINOSAURS)} 
@@ -193,7 +193,7 @@ import { QUIZ_SPECIMENS } from '../../data/quiz';
 
     <!-- Client-side Interactive Logic -->
     <script>
-        const HIGH_SCORE_BASE_KEY = 'dino_nexus_quiz_highscore';
+        const HIGH_SCORE_BASE_KEY = 'dino_portal_quiz_highscore';
         
         let quizState = {
             dinosaurs: [],
