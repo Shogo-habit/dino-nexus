@@ -349,7 +349,7 @@ import { QUIZ_SPECIMENS } from '../../data/quiz';
                 silContainer!.style.display = 'flex';
                 
                 const silImg = document.getElementById('silhouette-image') as HTMLImageElement;
-                silImg.src = `/images/silhouette/${currentQ.dino.id}.png`; // 事前生成した高品質な透過シルエットPNGを使用
+                silImg.src = `/images/silhouette/${currentQ.dino.id}.webp`; // 事前生成した高品質な透過シルエットWebPを使用
             }             else if (currentQ.mode === 1) {
                 // Close-Up Mode
                 promptText!.innerText = `[クイズ形式: クローズアップ] 拡大表示された特徴（${currentQ.specimen.featureName}）から名前を当ててください。`;

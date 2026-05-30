@@ -147,13 +147,13 @@ const relatedSpecimens = DINOSAURS.filter(item => {
                     <div class="comparison-stage" style="position: absolute; width: 100%; height: 100%; bottom: 0; left: 0;">
                         <!-- Dino visual -->
                         <div class="dino-vis" style={`position: absolute; left: ${dinoLeft}; bottom: ${BASELINE_PX}px; height: ${SAFE_ZONE_H}px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; pointer-events: none; overflow: visible;`}>
-                            <img src={`/images/cyber/${d.id}.png`} alt={d.name} class="cyber-hud-specimen" 
+                            <img src={`/images/cyber/${d.id}.webp`} alt={d.name} class="cyber-hud-specimen" 
                                  style={`height: ${dinoTotalH}px; width: auto; margin-bottom: -${dinoBottomOffset}px; flex-shrink: 0; mix-blend-mode: screen !important;`}>
                             <div class="vis-tag dino-tag" style="white-space: nowrap; position: absolute; bottom: -45px;">{d.name} / {d.length}</div>
                         </div>
                         <!-- Human reference -->
                         <div class="ref-vis" style={`position: absolute; right: ${refRight}; bottom: ${BASELINE_PX}px; height: ${SAFE_ZONE_H}px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; pointer-events: none; overflow: visible;`}>
-                            <img src="/images/cyber/human_front.png" alt="HUMAN" class="cyber-hud-specimen" 
+                            <img src="/images/cyber/human_front.webp" alt="HUMAN" class="cyber-hud-specimen" 
                                  style={`height: ${refTotalH}px; width: auto; margin-bottom: -${refBottomOffset}px; flex-shrink: 0; mix-blend-mode: screen !important;`}>
                             <div class="vis-tag ref-tag" style="white-space: nowrap; position: absolute; bottom: -45px;">人間 / 1.7m</div>
                         </div>
