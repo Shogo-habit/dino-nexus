@@ -27,7 +27,7 @@ const relatedDinos = (topic.relatedSpecimens || []).map(specimenId => {
             <h1 class="topic-title" style="font-size: 28px; color: var(--primary-neon); margin: 0;">{topic.title}</h1>
         </div>
         
-        <img src={`/${topic.image}`} class="topic-detail-img" alt={topic.title} style="width: 100%; max-height: 400px; object-fit: cover; margin-bottom: 30px; border: 1px solid var(--panel-border);">
+        <img src={`/${topic.image}`} class="topic-detail-img" alt={topic.title}>
         
         <div class="topic-content">
             <Fragment set:html={topic.content} />
